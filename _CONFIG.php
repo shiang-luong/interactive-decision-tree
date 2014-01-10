@@ -1,7 +1,7 @@
 <?php
 
 define('APP_NAME','Wheeler Expungement App ');
-define('TARGET_TREE','showTree.html?1374682207');
+define('TARGET_TREE','1374682207');
 define("DBHOST","localhost");
 define("DBUSERNAME","root");
 define("CC_DBPASSWD", "PASSWORD");

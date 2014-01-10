@@ -1,57 +1,72 @@
-var treeData;
-$(document).ready( function(){
-	
-	windowWidth = $('#tree-window').outerWidth( false );
-	sliderWidth = 0;
-	slideTime = 300;
-	branches = new Array();
-	options = {};
-	var thisURL = new String(document.location);
-	var urlParts = thisURL.split('?');
-	loadData( urlParts[1] );
-	
-	$('#tree-reset').click( function(e){
-	  console.log("RESET");
-	  $('#tree-window').scrollTo( 0 + 'px', { axis:'x', 
-	                                          duration: slideTime, 
-	                                          easing:'easeInOutExpo',
-	                                          onAfter: function(){
-	                                            $('.tree-content-box:gt(0)').remove();
-	                                          } //onAfter
-                                          } // options
-                              ); //scrollTo
-  }); //click
-		
+var treeData, windowWidth, sliderWidth, slideTime, branches;
+
+$(document).ready(function (){
+
+    $('#readDis').click(function (event) {
+        event.preventDefault();
+        $('.welcome').hide();
+        $('.disclaimer').show();
+    });
+
+    $('#agree').change(function (event) {
+        event.preventDefault();
+        $('.disclaimer').hide();
+        $('.begin').show();
+    });
+
+    $('#start').click(function (event) {
+        event.preventDefault();
+        $('.toggle').hide();
+        windowWidth = $('#tree-window').show().outerWidth(false);
+        sliderWidth = 0;
+        slideTime = 300;
+        var branches = [];
+        var options = {};
+        loadData($('#tree-window').attr('data-source'));
+    });
+
+	$('#tree-reset').click(function (event) {
+        event.preventDefault();
+        $('#tree-window').scrollTo( 0 + 'px', {
+            axis:'x',
+            duration: slideTime,
+            easing:'easeInOutExpo',
+            onAfter: function(){
+                $('.tree-content-box:gt(0)').remove();
+            } //onAfter
+        }); //scrollTo
+    }); //click
 });
 
-function debug( str ){
+function debug(str) {
 	$('#debug').append( str + '<br />' );
 }
 
-function loadData( id ){
+function loadData(id) {
 	$.ajax({
-		type: "GET", 
-		url: "xml/tree" + id + ".xml", 
-		dataType: "xml", 
+		type: 'GET',
+		url: 'xml/tree' + id + '.xml',
+		dataType: 'xml',
 		success: function( xml ){
 			buildNodes( xml );
 		}
 	});
 }
 
-function TreeBranch(){
+function TreeBranch() {
 	this.id = '';
 	this.content = '';
-	this.forkIDs = new Array();
-	this.forkLabels = new Array();
+	this.forkIDs = [];
+	this.forkLabels = [];
 }
 
-function parseOptions( xmlData ){
-  
+function parseOptions(xmlData) {
+
 }
 
-function buildNodes( xmlData ){
+function buildNodes(xmlData) {
 	var maxDepth = 0;
+    branches = [];
 	treeData = xmlData;
 	$(xmlData).find('branch').each(
 		function(){
@@ -69,7 +84,7 @@ function buildNodes( xmlData ){
 			if( branchDepthParts.length > maxDepth ){
 				maxDepth = branchDepthParts.length;
 			}
-	});
+        });
 	sliderWidth = windowWidth * maxDepth;
 	$('#tree-slider').width( sliderWidth );
 	var resetText = $(xmlData).find('resetText').text();
@@ -80,7 +95,7 @@ function buildNodes( xmlData ){
 function resetActionLinks(){
 	$('.decision-links a').unbind( 'click' );
 	$('a.back-link').unbind( 'click' );
-	
+
 	$('.decision-links a').click( function(e){
 		if( !$(this).attr('href') ){
 			showBranch( $(this).attr('id') );

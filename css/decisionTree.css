@@ -41,6 +41,7 @@ a:hover{
 	width: 750px;
 	height: 500px;
 	overflow: hidden;
+    display:none;
 }
 #tree-slider{
 	margin: 0;
@@ -52,7 +53,7 @@ a:hover{
 	margin: 0;
 	padding: 15px;
 	float: left;
-	width: 720px;
+	width: 750px;
 	font-size: 2em;
 }
 .decision-links{
@@ -68,3 +69,7 @@ a:hover{
 	font-size: 0.4em;
 	border: none;
 }
+
+.welcome{display:block}
+.disclaimer{display:none}
+.begin{display:none}
