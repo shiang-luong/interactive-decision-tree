@@ -1,7 +1,7 @@
 ## Introduction
 
-This is a fork of [https://github.com/hungrymedia/interactive-decision-tree](VisionMedia's Interactive-Decision-Treee),
-which is a great tool for quickly building decision trees.  The trees are a great tool for law-related sites to
+This is a fork of (HungryMedia's Interactive-Decision-Tree) (https://github.com/hungrymedia/interactive-decision-tree)
+which is a great tool for quickly implimenting web-based decision trees.  The trees are a great tool for law-related sites to
 help users evaluate potential claims.
 
 This project will make the following additions (in progress):
