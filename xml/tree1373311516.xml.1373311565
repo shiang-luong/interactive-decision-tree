@@ -1,2 +1,0 @@
-<?xml version="1.0"?>
-<tree><title>Expungement</title><description>A test of expungements</description><resetText>Start Again</resetText><branch id="1.1"><content></content></branch><branch id="1.2"><content></content></branch><branch id="1"><content>Are you convicted of a crime</content><fork target="1.1">Yes</fork><fork target="1.2">No</fork></branch><revision>xml/tree1373311516.xml.1373311532</revision></tree>
