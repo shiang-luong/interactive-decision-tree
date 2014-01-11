@@ -1,6 +1,6 @@
 <?php
 
-define( 'XML_DIR_PATH', 'xml/' );
+define( 'XML_DIR_PATH', '../xml/' );
 define( 'EDITOR_URL', 'editTree.php' );
 define( 'VIEWER_URL', 'showTree.html' );
 

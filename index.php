@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Bootstrap -->
     <link href="public/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/decisionTree.css" rel="stylesheet">
+    <link href="public/css/decisionTree.css" rel="stylesheet">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -49,9 +49,9 @@
      <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.2.min.js"><\/script>')</script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="public/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="js/jquery.easing.1.3.js"></script>
-    <script type="text/javascript" src="js/jquery.scrollTo-1.3.3-min.js"></script>
-    <script type="text/javascript" src="js/decisionTree.js"></script>
-    <script type="text/javascript" src="public/bower_components/jquery.cookie/jquery.cookie.js"></script>
+    <script src="public/js/jquery.easing.1.3.js"></script>
+    <script src="public/js/jquery.scrollTo-1.3.3-min.js"></script>
+    <script src="public/js/decisionTree.js"></script>
+    <script src="public/bower_components/jquery.cookie/jquery.cookie.js"></script>
   </body>
 </html>

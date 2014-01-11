@@ -16,7 +16,7 @@ $(document).ready(function (){
 
     $('#start').click(function (event) {
         event.preventDefault();
-        $.post('backend.php', {'action':'log'}, function(data) {
+        $.post('private/backend.php', {'action':'log'}, function(data) {
             var resp = $.parseJSON(data);
             $.cookie('idt-user',resp.userid,{ expires: 365 });
         });
@@ -117,7 +117,7 @@ function resetActionLinks(){
 function showBranch( id ){
     var currentBranch;
 	for(var i = 0; i < branches.length; i++ ){
-		if( branches[i].id === id ){
+		if( branches[i].id == id ){
 			currentBranch = branches[i];
 			break;
 		}
@@ -126,7 +126,7 @@ function showBranch( id ){
 	for(var d = 0; d < currentBranch.forkIDs.length; d++ ){
 		var link = '';
 		var forkContent = $(treeData).find('branch[id="' + currentBranch.forkIDs[d] + '"]').find('content').text();
-		if( forkContent.indexOf('http://') === 0 || forkContent.indexOf('https://') === 0 ){
+		if( forkContent.indexOf('http://') == 0 || forkContent.indexOf('https://') == 0 ){
 			link = 'href="' + forkContent + '"';
 		}
 		decisionLinksHTML += '<a ' + link + ' id="' + currentBranch.forkIDs[d] + '">' + currentBranch.forkLabels[d] + '</a>';
@@ -139,7 +139,7 @@ function showBranch( id ){
 	branchHTML += '</div>';
 	$('#tree-slider').append( branchHTML );
 	resetActionLinks();
-	if(currentBranch.id !== 1 ){
+	if(currentBranch.id != 1 ){
 		$('#tree-window').scrollTo( '+=' + windowWidth + 'px', { axis:'x', duration:slideTime, easing:'easeInOutExpo' } );
 	}
 	// add last-child class for IE
