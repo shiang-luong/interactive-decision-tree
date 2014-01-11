@@ -1,7 +1,7 @@
 ## Introduction
 
 This is a fork of [HungryMedia's Interactive-Decision-Tree](https://github.com/hungrymedia/interactive-decision-tree)
-which is a great tool for quickly implimenting web-based decision trees.  The trees are a great tool for law-related sites to
+which is a great tool for quickly implimenting web-based decision trees.  Decision trees are  great for law-related sites to
 help users evaluate potential claims.
 
 This project will make the following additions (in progress):
