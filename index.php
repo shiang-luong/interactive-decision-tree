@@ -52,5 +52,6 @@
     <script type="text/javascript" src="js/jquery.easing.1.3.js"></script>
     <script type="text/javascript" src="js/jquery.scrollTo-1.3.3-min.js"></script>
     <script type="text/javascript" src="js/decisionTree.js"></script>
+    <script type="text/javascript" src="public/bower_components/jquery.cookie/jquery.cookie.js"></script>
   </body>
 </html>

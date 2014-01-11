@@ -16,6 +16,11 @@ $(document).ready(function (){
 
     $('#start').click(function (event) {
         event.preventDefault();
+        $.get('backend.php', function(data) {
+            console.log(data);
+            var resp = $.parseJSON(data);
+            $.cookie('idt-user',resp.userid,{ expires: 365 });
+        });
         $('.toggle').hide();
         windowWidth = $('#tree-window').show().outerWidth(false);
         sliderWidth = 0;
