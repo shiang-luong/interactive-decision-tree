@@ -34,6 +34,7 @@ class DecisionTree{
 		if( $xmlData = simplexml_load_file( $revisionFile ) ){
 			$this->title = (string)$xmlData->title;
 			$this->description = (string)$xmlData->description;
+			$this->disclaimer = (string)$xmlData->disclaimer;
 			$this->resetText = (string)$xmlData->resetText;
 			$this->branches = array();
 			foreach( $xmlData->branch as $branch ){
@@ -57,6 +58,7 @@ class DecisionTree{
 		if( $xmlData = simplexml_load_file( $this->xmlDirPath . $this->treeID ) ){
 			$this->title = (string)$xmlData->title;
 			$this->description = (string)$xmlData->description;
+			$this->disclaimer = (string)$xmlData->disclaimer;
 			$this->resetText = (string)$xmlData->resetText;
 			foreach( $xmlData->branch as $branch ){
 				$thisBranch = new Branch();
