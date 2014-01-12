@@ -2,6 +2,16 @@ var treeData, windowWidth, sliderWidth, slideTime, branches ;
 
 $(document).ready(function (){
 
+    //Get rid of any previous sessions
+    if (typeof $.cookie('idt-sess-id') !== 'undefined'){
+        $.removeCookie('idt-sess-id');
+    }
+
+    if (!areCookiesEnabled()){
+        $('.container').html('<h3><span class="label label-danger">Sorry!</span> You must have cookies enabled to use this service. ' +
+        'Please enable cookies and try again.</h3>');
+    }
+
     windowWidth = $('#tree-window').show().outerWidth(false);
     sliderWidth = 0;
     slideTime = 300;
@@ -13,16 +23,9 @@ $(document).ready(function (){
 
 	$('#tree-reset').click(function (event) {
         event.preventDefault();
-        alert('clcik');
-        $('#tree-window').scrollTo( 0 + 'px', {
-            axis:'x',
-            duration: slideTime,
-            easing:'easeInOutExpo',
-            onAfter: function(){
-                $('.tree-content-box:gt(0)').remove();
-            } //onAfter
-        }); //scrollTo
-    }); //click
+        $.removeCookie('idt-sess-id');
+        location.reload();
+    });
 
 });
 
@@ -173,3 +176,12 @@ function showBranch( id ){
 	$('.decision-links a:last').addClass( 'last-child' );
 }
 
+function areCookiesEnabled() {
+    var cookieEnabled = (navigator.cookieEnabled) ? true : false;
+
+    if (typeof navigator.cookieEnabled == "undefined" && !cookieEnabled) {
+        document.cookie="testcookie";
+        cookieEnabled = (document.cookie.indexOf("testcookie") != -1) ? true : false;
+    }
+    return (cookieEnabled);
+}
