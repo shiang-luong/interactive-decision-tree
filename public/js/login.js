@@ -1,6 +1,5 @@
 $(document).ready(function () {
 
-
     if (typeof $.cookie('idt-admin') !== 'undefined'){
         $('input[name="username"]').val($.cookie('idt-admin'));
         $('input[name="rememberMe"]').prop('checked',true);
