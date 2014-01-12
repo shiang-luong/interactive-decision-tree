@@ -1,33 +1,15 @@
-var treeData, windowWidth, sliderWidth, slideTime, branches;
+var treeData, windowWidth, sliderWidth, slideTime, branches ;
 
 $(document).ready(function (){
 
-    $('#readDis').click(function (event) {
-        event.preventDefault();
-        $('.welcome').hide();
-        $('.disclaimer').show();
-    });
-
-    $('#agree').change(function (event) {
-        event.preventDefault();
-        $('.disclaimer').hide();
-        $('.begin').show();
-    });
-
-    $('#start').click(function (event) {
-        event.preventDefault();
-        $.post('private/backend.php', {'action':'log'}, function(data) {
-            var resp = $.parseJSON(data);
-            $.cookie('idt-user',resp.userid,{ expires: 365 });
-        });
-        $('.toggle').hide();
-        windowWidth = $('#tree-window').show().outerWidth(false);
-        sliderWidth = 0;
-        slideTime = 300;
-        var branches = [];
-        var options = {};
-        loadData($('#tree-window').attr('data-source'));
-    });
+    windowWidth = $('#tree-window').show().outerWidth(false);
+    sliderWidth = 0;
+    slideTime = 300;
+    var branches = [];
+    var options = {};
+    var thisURL = String(document.location);
+    var urlParts = thisURL.split('?');
+    loadData( urlParts[1] );
 
 	$('#tree-reset').click(function (event) {
         event.preventDefault();
@@ -45,6 +27,7 @@ $(document).ready(function (){
         
 
     });
+
 });
 
 function debug(str) {
@@ -94,7 +77,31 @@ function buildNodes(xmlData) {
 	$('#tree-slider').width( sliderWidth );
 	var resetText = $(xmlData).find('resetText').text();
 	$('#tree-reset').html( resetText );
-	showBranch( 1 );
+
+    //New code to show description and disclaimer
+    $('.app-title, title').text($(xmlData).find('title').text());
+	$('#tree-slider').append('<div class="info-wrapper"><span class="lead">' + $(xmlData).find('description').text() + '</span></div>' );
+    $('.info-wrapper').width($('#tree-window').outerWidth() - 100);
+    if ($(xmlData).find('disclaimer').length){
+        $('.info-wrapper').append('<br /><br /><button type="button" class="btn btn-warning show-disclaimer">Please Read the Disclaimer</button>');
+
+        $('#tree-window .show-disclaimer').on('click', function (event) {
+            event.preventDefault();
+            $('.info-wrapper').html('<span class="lead">' + $(xmlData).find('disclaimer').text() + '</span>' )
+            .append( '<div class="checkbox"> <label> <input type="checkbox" id="agree"> I agree.</label> </div>');
+            $('#tree-window #agree').on('change', function (event) {
+                $('.info-wrapper').remove();
+                showBranch(1);
+            });
+        });
+    } else {
+        $('.info-wrapper').append('<br /><br /><button type="button" class="btn btn-primary begin-tree">Begin</button>');
+        $('#tree-window .begin-tree').on('click', function (event) {
+            event.preventDefault();
+            $('.info-wrapper').remove();
+            showBranch(1);
+        });
+    }
 }
 
 function resetActionLinks(){

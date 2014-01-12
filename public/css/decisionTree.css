@@ -70,6 +70,7 @@ a:hover{
 	border: none;
 }
 
-.welcome{display:block}
-.disclaimer{display:none}
-.begin{display:none}
+.info-wrapper{
+    margin:20px;
+
+}

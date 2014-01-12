@@ -17,8 +17,8 @@
   </head>
   <body>
     <div  class="container">
-        <h1><?php echo APP_NAME; ?></h1>
-        <div class="welcome toggle">
+        <h1 class="app-title"></h1>
+<!--        <div class="welcome toggle">
             <p>This app will help you determine whether or not you can get your criminal 
             conviction expunged under Louisiana law.</p>
             <p>Before we begin, please <a href="#" id = "readDis">read the disclaimer</a>.</p>
@@ -37,9 +37,9 @@
             <p>Ok, let's start!</p>
             <button id="start">Begin</button>
         </div>
-
-        <div id="tree-window" class="container" data-source="<?php echo TARGET_TREE; ?>">
-            <div id="tree-slider">
+-->
+        <div id="tree-window" class="container">
+            <div id="tree-slider" class="well">
 
             </div>
         </div>

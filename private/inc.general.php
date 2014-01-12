@@ -2,7 +2,7 @@
 
 define( 'XML_DIR_PATH', '../xml/' );
 define( 'EDITOR_URL', 'editTree.php' );
-define( 'VIEWER_URL', 'showTree.html' );
+define( 'VIEWER_URL', '../index.php' );
 
 // load classes "on demand"
 function __autoload($class_name) {
