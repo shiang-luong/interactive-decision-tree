@@ -91,7 +91,11 @@ function buildNodes(xmlData) {
             .append( '<div class="checkbox"> <label> <input type="checkbox" id="agree"> I agree.</label> </div>');
             $('#tree-window #agree').on('change', function (event) {
                 $('.info-wrapper').remove();
-                showBranch(1);
+                $.post('private/backend.php', {'action':'log'}, function(data) {
+                    var resp = $.parseJSON(data);
+                    $.cookie('idt-user',resp.userid,{ expires: 365 });
+                    showBranch(1);
+                });
             });
         });
     } else {
@@ -99,7 +103,11 @@ function buildNodes(xmlData) {
         $('#tree-window .begin-tree').on('click', function (event) {
             event.preventDefault();
             $('.info-wrapper').remove();
-            showBranch(1);
+            $.post('private/backend.php', {'action':'log'}, function(data) {
+                var resp = $.parseJSON(data);
+                $.cookie('idt-user',resp.userid,{ expires: 365 });
+                showBranch(1);
+            });
         });
     }
 }

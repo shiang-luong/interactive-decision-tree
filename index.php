@@ -18,26 +18,6 @@
   <body>
     <div  class="container">
         <h1 class="app-title"></h1>
-<!--        <div class="welcome toggle">
-            <p>This app will help you determine whether or not you can get your criminal 
-            conviction expunged under Louisiana law.</p>
-            <p>Before we begin, please <a href="#" id = "readDis">read the disclaimer</a>.</p>
-        </div>
-        <div class = "disclaimer toggle">
-            <p>This app does not provide legal advice.  Any information which
-            you give here is not confidential and is not protected by attorney-client
-            privilege.</p>
-            <div class="checkbox">
-                <label>
-                <input type="checkbox" id="agree"> I agree to this.
-                </label>
-            </div>
-        </div>
-        <div class="begin toggle">
-            <p>Ok, let's start!</p>
-            <button id="start">Begin</button>
-        </div>
--->
         <div id="tree-window" class="container">
             <div id="tree-slider" class="well">
 
