@@ -23,11 +23,6 @@ $(document).ready(function (){
         }); //scrollTo
     }); //click
 
-    $('div.decision-links a').click(function (event) {
-        
-
-    });
-
 });
 
 function debug(str) {
@@ -39,8 +34,8 @@ function loadData(id) {
 		type: 'GET',
 		url: 'xml/tree' + id + '.xml',
 		dataType: 'xml',
-		success: function( xml ){
-			buildNodes( xml );
+		success: function(xml){
+			buildNodes(xml, id );
 		}
 	});
 }
@@ -52,7 +47,7 @@ function TreeBranch() {
 	this.forkLabels = [];
 }
 
-function buildNodes(xmlData) {
+function buildNodes(xmlData, id) {
 	var maxDepth = 0;
     branches = [];
 	treeData = xmlData;
@@ -82,6 +77,13 @@ function buildNodes(xmlData) {
     $('.app-title, title').text($(xmlData).find('title').text());
 	$('#tree-slider').append('<div class="info-wrapper"><span class="lead">' + $(xmlData).find('description').text() + '</span></div>' );
     $('.info-wrapper').width($('#tree-window').outerWidth() - 100);
+    var existingUser;
+    if (typeof $.cookie('idt-user') !== 'undefined'){ //this "user" has has done a tree before
+        existingUser = $.cookie('idt-user');
+    } else {
+        existingUser = '';
+    }
+
     if ($(xmlData).find('disclaimer').length){
         $('.info-wrapper').append('<br /><br /><button type="button" class="btn btn-warning show-disclaimer">Please Read the Disclaimer</button>');
 
@@ -91,9 +93,10 @@ function buildNodes(xmlData) {
             .append( '<div class="checkbox"> <label> <input type="checkbox" id="agree"> I agree.</label> </div>');
             $('#tree-window #agree').on('change', function (event) {
                 $('.info-wrapper').remove();
-                $.post('private/backend.php', {'action':'log'}, function(data) {
+                $.post('private/backend.php', {'action': 'log', 'existing_user': existingUser, 'tree_id': id}, function(data) {
                     var resp = $.parseJSON(data);
                     $.cookie('idt-user',resp.userid,{ expires: 365 });
+                    $.cookie('idt-sess-id',resp.sessid);
                     showBranch(1);
                 });
             });
@@ -103,9 +106,10 @@ function buildNodes(xmlData) {
         $('#tree-window .begin-tree').on('click', function (event) {
             event.preventDefault();
             $('.info-wrapper').remove();
-            $.post('private/backend.php', {'action':'log'}, function(data) {
+            $.post('private/backend.php', {'action':'log','existing_user':existingUser, 'tree_id': id}, function(data) {
                 var resp = $.parseJSON(data);
                 $.cookie('idt-user',resp.userid,{ expires: 365 });
+                $.cookie('idt-sess-id',resp.sessid);
                 showBranch(1);
             });
         });
@@ -118,6 +122,7 @@ function resetActionLinks(){
 
 	$('.decision-links a').click( function(e){
 		if( !$(this).attr('href') ){
+            //JM track here
 			showBranch( $(this).attr('id') );
 		}
 	});
@@ -161,78 +166,3 @@ function showBranch( id ){
 	$('.decision-links a:last').addClass( 'last-child' );
 }
 
-
-/*
-Useful timer functions used for menu mouseout delays
-Source: http://www.codingforums.com/showthread.php?t=10531
-*/
-function Timer(){
-    this.obj = (arguments.length)?arguments[0]:window;
-    return this;
-}
-
-// The set functions should be called with:
-// - The name of the object method (as a string) (required)
-// - The millisecond delay (required)
-// - Any number of extra arguments, which will all be
-//   passed to the method when it is evaluated.
-
-Timer.prototype.setInterval = function(func, msec){
-    var i = Timer.getNew();
-    var t = Timer.buildCall(this.obj, i, arguments);
-    Timer.set[i].timer = window.setInterval(t,msec);
-    return i;
-}
-Timer.prototype.setTimeout = function(func, msec){
-    var i = Timer.getNew();
-    Timer.buildCall(this.obj, i, arguments);
-    Timer.set[i].timer = window.setTimeout("Timer.callOnce("+i+");",msec);
-    return i;
-}
-
-// The clear functions should be called with
-// the return value from the equivalent set function.
-
-Timer.prototype.clearInterval = function(i){
-    if(!Timer.set[i]) return;
-    window.clearInterval(Timer.set[i].timer);
-    Timer.set[i] = null;
-}
-Timer.prototype.clearTimeout = function(i){
-    if(!Timer.set[i]) return;
-    window.clearTimeout(Timer.set[i].timer);
-    Timer.set[i] = null;
-}
-
-// Private data
-
-Timer.set = new Array();
-Timer.buildCall = function(obj, i, args){
-    var t = "";
-    Timer.set[i] = new Array();
-    if(obj != window){
-        Timer.set[i].obj = obj;
-        t = "Timer.set["+i+"].obj.";
-    }
-    t += args[0]+"(";
-    if(args.length > 2){
-        Timer.set[i][0] = args[2];
-        t += "Timer.set["+i+"][0]";
-        for(var j=1; (j+2)<args.length; j++){
-            Timer.set[i][j] = args[j+2];
-            t += ", Timer.set["+i+"]["+j+"]";
-    }}
-    t += ");";
-    Timer.set[i].call = t;
-    return t;
-}
-Timer.callOnce = function(i){
-    if(!Timer.set[i]) return;
-    eval(Timer.set[i].call);
-    Timer.set[i] = null;
-}
-Timer.getNew = function(){
-    var i = 0;
-    while(Timer.set[i]) i++;
-    return i;
-}
