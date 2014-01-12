@@ -61,8 +61,6 @@ if ($_POST['action'] === 'log'){
     $error = $add_session->errorInfo();
     if ($error[1]){
         array_push($errors, $error[1]);
-        echo "shit";
-        print_r($errors);
     }
     $sess_id =$dbh->lastInsertId();
 
@@ -81,7 +79,16 @@ if ($_POST['action'] === 'log'){
 
 if ($_POST['action'] === 'progress'){
 
-
+    $track_progress = $dbh->prepare("UPDATE  `sessions` SET  `last_link_clicked` =  :last_link WHERE  `id` = :sess_id; ");
+    $data = array('last_link' => $_POST['last_link'], 'sess_id' => $_POST['session_id']);
+    $track_progress->execute($data);
+    $error = $track_progress->errorInfo();
+    if ($error[1]){
+        $resp = array('status' => 'ERROR');
+    } else {
+        $resp = array('status' => 'OK');
+    }
+    echo json_encode($resp);
 }
 
 /*

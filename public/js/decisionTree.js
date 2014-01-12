@@ -13,6 +13,7 @@ $(document).ready(function (){
 
 	$('#tree-reset').click(function (event) {
         event.preventDefault();
+        alert('clcik');
         $('#tree-window').scrollTo( 0 + 'px', {
             axis:'x',
             duration: slideTime,
@@ -98,6 +99,7 @@ function buildNodes(xmlData, id) {
                     $.cookie('idt-user',resp.userid,{ expires: 365 });
                     $.cookie('idt-sess-id',resp.sessid);
                     showBranch(1);
+                    $('.reset-container').show();
                 });
             });
         });
@@ -111,6 +113,7 @@ function buildNodes(xmlData, id) {
                 $.cookie('idt-user',resp.userid,{ expires: 365 });
                 $.cookie('idt-sess-id',resp.sessid);
                 showBranch(1);
+                $('.reset-container').show();
             });
         });
     }
@@ -124,6 +127,10 @@ function resetActionLinks(){
 		if( !$(this).attr('href') ){
             //JM track here
 			showBranch( $(this).attr('id') );
+            $.post('private/backend.php', {'action': 'progress', 'session_id': $.cookie('idt-sess-id'),'last_link': $(this).attr('id')},
+            function (data){
+
+            });
 		}
 	});
 	$('a.back-link').click( function(){

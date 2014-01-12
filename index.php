@@ -23,6 +23,9 @@
 
             </div>
         </div>
+        <div class="reset-container">
+            <button id="tree-reset" type="button" class="btn btn-primary btn-sm"></button>
+        </div>
     </div>    
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
      <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>

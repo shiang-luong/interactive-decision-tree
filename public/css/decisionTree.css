@@ -78,3 +78,8 @@ a:hover{
 .login-error{
     visibility:hidden;
 }
+
+.reset-container{
+    display:none;
+    margin-top:20px
+}
