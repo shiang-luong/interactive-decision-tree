@@ -101,11 +101,11 @@ function showTreeForm( $tree, $selectedRevision ){
 	?>
   <p><a href="<?php echo EDITOR_URL; ?>">&laquo; Return to list</a>&nbsp;&nbsp;&nbsp;
   	<a target="_blank" href="<?php echo VIEWER_URL; ?>?<?php echo $treeViewerID; ?>">View tree in new window &raquo;</a></p>
-  <form id="tree-editor" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+  <form role="form" id="tree-editor" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
   <?php
 	if( !empty( $tree->revisions ) ){
 	?>
-  <select id="revisions" name="revision">
+  <select id="revisions" class="form-control" name="revision">
   	<option value="">View Revisions</option>
     <?php
 		foreach( $tree->revisions as $revision ){
@@ -125,18 +125,26 @@ function showTreeForm( $tree, $selectedRevision ){
   <?php
 	}
 	?>
-  <p><label for="title">Title:</label><br />
-  	<input type="text" id="title" name="treeTitle" value="<?php echo $tree->title; ?>" /></p>
-  <p><label for="description">Description:</label><br />
-  	<textarea id="description" name="treeDescription"><?php echo $tree->description; ?></textarea></p>
-  <p><label for="disclaimer">Disclaimer:</label><br />
-  	<textarea id="disclaimer" name="treeDisclaimer"><?php echo $tree->disclaimer; ?></textarea></p>
-  <p><label for="reset">
+    <div class="form-group">
+        <label for="title">Title:</label>
+        <input type="text" id="title" class="form-control" name="treeTitle" value="<?php echo $tree->title; ?>" />
+    </div>
+    <div class="form-group">
+        <label for="description">Description:</label><br />
+        <textarea id="description"  class="form-control" name="treeDescription"><?php echo $tree->description; ?></textarea>
+    </div>
+    <div class="form-group">
+        <label for="disclaimer">Disclaimer:</label><br />
+        <textarea id="disclaimer"  class="form-control" name="treeDisclaimer"><?php echo $tree->disclaimer; ?></textarea>
+    </div>
+    <div class="checkbox">
+        <label for="reset">
 		<input type="checkbox" id="show-reset" <?php echo $checkedHTML; ?> /> Show reset/home link?</label><br />
-  	<input type="text" id="reset-text" name="resetText" placeholder="text for link (e.g. Start again)" disabled value="<?php echo $tree->resetText; ?>" /></p>
-  <p><input type="submit" value="Save" />
-		<input type="hidden" id="treeID" name="treeID" value="<?php echo $tree->treeID; ?>" />
-    <input type="hidden" name="cmd" id="cmd" value="save-tree" /></p>
+        <input type="text"  class="form-control" id="reset-text" name="resetText" placeholder="text for link (e.g. Start again)" disabled value="<?php echo $tree->resetText; ?>" /></p>
+    </div>
+  <input type="hidden" id="treeID" name="treeID" value="<?php echo $tree->treeID; ?>" />
+  <input type="hidden" name="cmd" id="cmd" value="save-tree" />
+  <p><input type="submit" value="Save" /></p>
   </form>
   <?php
 }
