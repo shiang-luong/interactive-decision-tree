@@ -105,6 +105,8 @@ function showTreeForm( $tree, $selectedRevision ){
   	<input type="text" id="title" name="treeTitle" value="<?php echo $tree->title; ?>" /></p>
   <p><label for="description">Description:</label><br />
   	<textarea id="description" name="treeDescription"><?php echo $tree->description; ?></textarea></p>
+  <p><label for="disclaimer">Disclaimer:</label><br />
+  	<textarea id="disclaimer" name="treeDisclaimer"><?php echo $tree->disclaimer; ?></textarea></p>
   <p><label for="reset">
 		<input type="checkbox" id="show-reset" <?php echo $checkedHTML; ?> /> Show reset/home link?</label><br />
   	<input type="text" id="reset-text" name="resetText" placeholder="text for link (e.g. Start again)" disabled value="<?php echo $tree->resetText; ?>" /></p>
@@ -122,9 +124,10 @@ function saveTree( $tree, $selectedRevision ){
 	if( !empty( $selectedRevision ) ){
 		$tree->loadRevision( $selectedRevision );
 	}
-	$tree->title = Util::makeVar( 'treeTitle' );
-	$tree->description = Util::makeVar( 'treeDescription' );
-	$tree->resetText = Util::makeVar( 'resetText' );
+	$tree->title = Util::makeVar('treeTitle');
+	$tree->description = Util::makeVar('treeDescription');
+	$tree->disclaimer = Util::makeVar('treeDisclaimer');
+	$tree->resetText = Util::makeVar('resetText');
 	$tree->saveData();
 }
 

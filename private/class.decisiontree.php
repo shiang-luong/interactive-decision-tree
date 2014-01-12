@@ -122,10 +122,13 @@ class DecisionTree{
 	
 	function saveData(){
 		$xmlData = new SimpleXMLElement("<tree></tree>");
-		$xmlData->addChild( 'title', $this->title );
-		$xmlData->addChild( 'description', $this->description );
-		if( !empty( $this->resetText ) ){
-			$xmlData->addChild( 'resetText', $this->resetText );
+		$xmlData->addChild('title', $this->title);
+		$xmlData->addChild('description', $this->description);
+		if( !empty($this->disclaimer) ){
+            $xmlData->addChild('disclaimer', $this->disclaimer);
+        }
+		if( !empty($this->resetText) ){
+			$xmlData->addChild('resetText', $this->resetText);
 		}
 		foreach( $this->branches as $branch ){
 			$branchXML = $xmlData->addChild( 'branch' );
