@@ -1,4 +1,5 @@
 <?php
+session_start();
 error_reporting(~0); ini_set('display_errors', 1);
 
 require('../_CONFIG.php');
@@ -56,3 +57,22 @@ if ($_POST['action'] === 'progress'){
 
 
 }
+
+/*
+    Log in user to edit tree
+*/
+if ($_POST['action'] === 'login'){
+
+    $user = $_POST['username'];
+    $pass = sha1($_POST['password']);
+    $login = $dbh->prepare('SELECT * from `admin` where username = :username AND password = :password');
+    $data = array('username' => $user, 'password' => $pass);
+    $login->execute($data);
+    if ($login->rowCount() > 0){
+        $_SESSION['isLoggedIn'] = '1';
+        echo json_encode(array('status' => 'OK','message' => 'Logging you in...'));
+    } else {
+        echo json_encode(array('status' => 'ERROR','message' => 'Incorrect Username or Password'));
+    }
+}
+
