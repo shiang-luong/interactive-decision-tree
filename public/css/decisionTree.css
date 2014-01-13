@@ -83,3 +83,7 @@ a:hover{
     display:none;
     margin-top:20px
 }
+
+a.referral-link:link{
+    text-decoration:underline;
+}

@@ -162,7 +162,10 @@ function showBranch( id ){
 		decisionLinksHTML += '<a ' + link + ' id="' + currentBranch.forkIDs[d] + '">' + currentBranch.forkLabels[d] + '</a>';
 	}
 	decisionLinksHTML += '</div>';
-	var branchHTML = '<div id="branch-' + currentBranch.id + '" class="tree-content-box"><div class="content">' + currentBranch.content + '</div>' + decisionLinksHTML;
+    //insert referral link here
+    var scanTxt;
+    scanTxt = currentBranch.content.replace('{{','<a class="referral-link" href="referrals.php">').replace('}}','</a>');
+	var branchHTML = '<div id="branch-' + currentBranch.id + '" class="tree-content-box"><div class="content">' + scanTxt + '</div>' + decisionLinksHTML;
 	if( currentBranch.id !== 1 ){
 		branchHTML += '<a class="back-link">&laquo; Back</a>';
 	}
