@@ -1,3 +1,21 @@
+-- phpMyAdmin SQL Dump
+-- version 3.4.10.1deb1
+-- http://www.phpmyadmin.net
+--
+-- Host: localhost
+-- Generation Time: Jan 13, 2014 at 08:27 AM
+-- Server version: 5.5.34
+-- PHP Version: 5.3.10-1ubuntu3.9
+
+SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
+
+--
+-- Database: `inter-tree`
+--
+
+-- --------------------------------------------------------
+
 --
 -- Table structure for table `admin`
 --
@@ -13,6 +31,37 @@ CREATE TABLE IF NOT EXISTS `admin` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `referrals`
+--
+
+CREATE TABLE IF NOT EXISTS `referrals` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(500) NOT NULL,
+  `address` text NOT NULL,
+  `city` varchar(250) NOT NULL,
+  `state` varchar(250) NOT NULL,
+  `zip` varchar(10) NOT NULL,
+  `loc` varchar(250) NOT NULL,
+  `status` varchar(10) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `referrals_assoc_tree`
+--
+
+CREATE TABLE IF NOT EXISTS `referrals_assoc_tree` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `referral_id` int(11) NOT NULL,
+  `assoc_tree` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `sessions`
 --
 
@@ -23,7 +72,7 @@ CREATE TABLE IF NOT EXISTS `sessions` (
   `time_started` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP,
   `last_link_clicked` varchar(20) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=29 ;
 
 -- --------------------------------------------------------
 
