@@ -39,7 +39,6 @@ $(document).ready( function(){
 		var forkID = branchID + '.' + nextFork;
 		var newForkHTML = '<span><input class="fork" type="text" id="fork-' + forkID + '" name="fork-' + forkID + '" /> <a href="#" class="btnRemoveFork">&laquo; Remove</a><br /></span>';
 		$('p#forks').append( newForkHTML );
-//		alert( forkID );
 	});
 	
 	$('.btnRemoveFork').live( 'click',function(){
@@ -55,5 +54,6 @@ $(document).ready( function(){
       }
 	  } 
 	);
-	
+    
+    $('a.help-pop').popover();
 });

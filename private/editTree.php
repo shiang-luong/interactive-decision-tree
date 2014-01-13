@@ -84,6 +84,8 @@ switch( $cmd ){
 </div>
 <script type="text/javascript" src="../public/js/jquery.min.js"></script>
 <script type="text/javascript" src="../public/js/editor.js"></script>
+<script type="text/javascript" src="../public/bower_components/bootstrap/js/tooltip.js"></script>
+<script type="text/javascript" src="../public/bower_components/bootstrap/js/popover.js"></script>
 </body>
 </html>
 <?php
@@ -126,15 +128,20 @@ function showTreeForm( $tree, $selectedRevision ){
 	}
 	?>
     <div class="form-group">
-        <label for="title">Title:</label>
+        <label for="title">Title:  <a href="#" class="label label-info help-pop" data-toggle="popover" title="" 
+        data-content="The title for your decision tree will be shown at the top of the page." role="button" data-original-title="About Title">?</a></label>
         <input type="text" id="title" class="form-control" name="treeTitle" value="<?php echo $tree->title; ?>" />
     </div>
     <div class="form-group">
-        <label for="description">Description:</label><br />
+        <label for="description">Description:  <a href="#" class="label label-info help-pop" data-toggle="popover" title="" 
+        data-content="Briefly say what your decision tree is trying to do.  This will be displayed under the title on the main page"
+        role="button" data-original-title="About Description">?</a></label><br />
         <textarea id="description"  class="form-control" name="treeDescription"><?php echo $tree->description; ?></textarea>
     </div>
     <div class="form-group">
-        <label for="disclaimer">Disclaimer:</label><br />
+        <label for="disclaimer">Disclaimer:</label>  <a href="#" class="label label-info help-pop" data-toggle="popover" title="" 
+        data-content="A disclaimer for your decision tree.  The user will be asked to agree to the dislaimer
+        before proceeding.  Leave blank if no dislaimer is wanted." role="button" data-original-title="About Disclaimer">?</a>
         <textarea id="disclaimer"  class="form-control" name="treeDisclaimer"><?php echo $tree->disclaimer; ?></textarea>
     </div>
     <div class="checkbox">
@@ -177,6 +184,7 @@ function showBranchForm( $tree, $branchID ){
   <p><label for="content">Question/Decision Text:</label><br />
   	<textarea id="content" name="branchContent"><?php echo $branch->content; ?></textarea>
 		<div class="note">Enter a URL above to route users there instead of displaying text (e.g. http://hungry-media.com)</div></p>
+		<div class="note">To create a link to referrals, enclose the link text in double braces (e.g, "{{contact us}}")</div></p>
   <p id="forks"><label for="fork">Options:</label><br />
   <?php
 	foreach( $branch->forks as $forkID => $forkLabel ){
@@ -188,7 +196,7 @@ function showBranchForm( $tree, $branchID ){
   <a href="#" id="btnAddFork">Add Another</a>
   <p><input type="submit" value="Save" /> 
   	<input type="hidden" name="cmd" id="cmd" value="save-branch" />
-  	<input class="btnCancel" type="button" value="cancel" />
+  	<input class="btnCancel" type="button" value="Cancel" />
     <input type="hidden" id="branchID" name="branchID" value="<?php echo $branchID; ?>" />
     <input type="hidden" id="treeID" name="treeID" value="<?php echo $tree->treeID; ?>" />
     </p>
