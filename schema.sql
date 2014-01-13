@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jan 13, 2014 at 08:27 AM
+-- Generation Time: Jan 13, 2014 at 08:50 AM
 -- Server version: 5.5.34
 -- PHP Version: 5.3.10-1ubuntu3.9
 
@@ -37,6 +37,9 @@ CREATE TABLE IF NOT EXISTS `admin` (
 CREATE TABLE IF NOT EXISTS `referrals` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(500) NOT NULL,
+  `phone` varchar(15) NOT NULL,
+  `email` varchar(250) NOT NULL,
+  `url` text NOT NULL,
   `address` text NOT NULL,
   `city` varchar(250) NOT NULL,
   `state` varchar(250) NOT NULL,
@@ -72,7 +75,7 @@ CREATE TABLE IF NOT EXISTS `sessions` (
   `time_started` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP,
   `last_link_clicked` varchar(20) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=29 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=32 ;
 
 -- --------------------------------------------------------
 
