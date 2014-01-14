@@ -54,8 +54,8 @@ catch(PDOException $e)
 
 <div class="table-responsive">
 
-    <table class="table table-hover">
-        <thead><tr><td>Name</td><td>Address</td><td>City</td><td>Email</td><td>Phone</td><tr></thead>
+    <table id="refTable" class="table table-hover">
+        <thead><tr><th>Name</th><th>Address</th><th>City</th><th>Email</th><th>Phone</th><tr></thead>
         <tbody>
 <?php 
     $q = $dbh->prepare('SELECT * from referrals ORDER BY id asc');
@@ -79,8 +79,11 @@ catch(PDOException $e)
 
 </div>
 <script type="text/javascript" src="../public/js/jquery.min.js"></script>
+<script type="text/javascript" src="../public/js/referralSources.js"></script>
 <script type="text/javascript" src="../public/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="../public/bower_components/bootstrap/js/tooltip.js"></script>
 <script type="text/javascript" src="../public/bower_components/bootstrap/js/popover.js"></script>
+<script type="text/javascript" src="../public/bower_components/DataTables/media/js/jquery.dataTables.js"></script>
+<script type="text/javascript" src="../public/bower_components/DataTables/media/js/dataTables.bootstrap.js"></script>
 </body>
 </html>
