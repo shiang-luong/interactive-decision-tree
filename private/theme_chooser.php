@@ -6,7 +6,7 @@ if ($_POST){
     fclose($f);
 }
 ?>
-<h3>Theme Chooser</h3>
+<p class="lead">Please select a theme.</p>
 <select id="themeChooser">
 <?php
 

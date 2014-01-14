@@ -13,13 +13,23 @@ $branchID = Util::makeVar( 'branchID' );
 $branchContent = Util::makeVar( 'branchContent' );
 $forks = Util::makeVar( 'forks' );
 $revision = Util::makeVar( 'revision' );
-
 $tree = new DecisionTree( $treeID );
 if( !empty( $revision ) ){
 	$tree->loadRevision( $revision );
 }
 
+switch( $cmd ){
+	case 'theme-chooser':
+    $page_title = "Theme";
+    break;
 
+	case 'ref-manage':
+    $page_title = "Referral Sources";
+    break;
+
+    default:
+    $page_title = "Trees";
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -54,7 +64,7 @@ if( !empty( $revision ) ){
   </div><!-- /.navbar-collapse -->
 </nav>
 <div class="container">
-<h1>Interactive Decision Tree</h1>
+<h1><?php echo $page_title; ?></h1>
 <div id="debug"></div>
 
 <?php
