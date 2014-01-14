@@ -101,7 +101,7 @@ foreach ($ref_data as $ref) {
 <?php
 foreach ($nearby as $n) { extract($n) ?>
     <tr><td><a class="addTooltip click-through" title="Visit website" href="<?php echo $url; ?>" target="_new"  data-id="<?php echo $id; ?>">
-    <?php echo $n['name']; ?></a></td><td><?php echo $n['address']; ?> , <?php echo $city; ?></td>
+    <?php echo $n['name']; ?></a></td><td><?php echo $n['address']; ?>, <?php echo $city; ?></td>
     <td><span class="glyphicon glyphicon-earphone click-through addTooltip" data-id="<?php echo $id; ?>"  title="Click for phone number"></span>
     <span class="phone-hide"><?php echo $phone; ?></span></td></tr> 
 <?php

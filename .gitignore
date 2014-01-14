@@ -2,3 +2,4 @@ Vagrantfile
 .vagrant
 *.swp
 *.un~
+*.xml.1*

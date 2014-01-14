@@ -75,7 +75,11 @@ function buildNodes(xmlData, id) {
 	sliderWidth = windowWidth * maxDepth;
 	$('#tree-slider').width( sliderWidth );
 	var resetText = $(xmlData).find('resetText').text();
-	$('#tree-reset').html( resetText );
+    if (resetText !== ''){
+        $('#tree-reset').html( resetText );
+    } else {
+        $('#tree-reset').remove();
+    }
 
     //New code to show description and disclaimer
     $('.app-title, title').text($(xmlData).find('title').text());
