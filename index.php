@@ -36,5 +36,6 @@
     <script src="public/js/jquery.scrollTo-1.3.3-min.js"></script>
     <script src="public/js/decisionTree.js"></script>
     <script src="public/bower_components/jquery.cookie/jquery.cookie.js"></script>
+    <script  src="public/bower_components/bootstrap/js/tooltip.js"></script>
   </body>
 </html>

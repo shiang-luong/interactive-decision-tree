@@ -1,6 +1,6 @@
 <?php
 
-require('_CONFIG.php');
+require('../_CONFIG.php');
 
 if(!isset($_COOKIE['idt-sess-id'])){
     die('There was an error loading customized referrals for you');
@@ -72,13 +72,41 @@ foreach ($ref_data as $ref) {
         $nearby[] = $ref;
     }
 }
+?>
 
-echo "<h3>Nearby Referrals</h3>";
-
-echo "<table>";
-foreach ($nearby as $n) {
-    echo "<tr>" . "<td>" . $n['name'] . "</td>" . "<td>" . $n['address'] . "</td>" . "</tr>";    
+<h3>Nearby Referrals</h3>
+<form id="refChooser" class="form-inline" role="form" >
+    <div class="form-group">
+        <span>Showing referrals within </span>
+    </div>
+    <div class="form-group">
+        <select  name="geo_range" class="form-control" id="geoRange">
+            <option value="528000">100</option>
+            <option value="264000">50</option>
+            <option value="105600" selected=selected>20</option>
+            <option value="52800">10</option>
+            <option value="26400">5</option>
+            <option value="10560">2</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <span> miles of zip code </span>
+    </div>
+    <div class="form-group">
+        <input type="text" class="form-control" name = "zip" id="zipCode" value="<?php echo $user_geo['zip']; ?>">
+    </div>
+  <button id="refSubmit"  class="btn btn-default">Change</button>
+</form>
+<table class="table">
+<?php
+foreach ($nearby as $n) { extract($n) ?>
+    <tr><td><a class="addTooltip click-through" title="Visit website" href="<?php echo $url; ?>" target="_new"  data-id="<?php echo $id; ?>">
+    <?php echo $n['name']; ?></a></td><td><?php echo $n['address']; ?> , <?php echo $city; ?></td>
+    <td><span class="glyphicon glyphicon-earphone click-through addTooltip" data-id="<?php echo $id; ?>"  title="Click for phone number"></span>
+    <span class="phone-hide"><?php echo $phone; ?></span></td></tr> 
+<?php
 }
-echo "</table>";
+?>
+</table>
 
 

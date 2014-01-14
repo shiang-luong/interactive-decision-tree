@@ -164,7 +164,7 @@ function showBranch( id ){
 	decisionLinksHTML += '</div>';
     //insert referral link here
     var scanTxt;
-    scanTxt = currentBranch.content.replace('{{','<a class="referral-link" href="referral.php">').replace('}}','</a>');
+    scanTxt = currentBranch.content.replace('{{','<a class="referral-link" href="#" onClick="generateReferral(false, false);return false;">').replace('}}','</a>');
 	var branchHTML = '<div id="branch-' + currentBranch.id + '" class="tree-content-box"><div class="content">' + scanTxt + '</div>' + decisionLinksHTML;
 	if( currentBranch.id !== 1 ){
 		branchHTML += '<a class="back-link">&laquo; Back</a>';
@@ -188,3 +188,52 @@ function areCookiesEnabled() {
     }
     return (cookieEnabled);
 }
+
+function generateReferral(zip, distance) {
+    var url;
+    if (zip){
+        url = 'private/referral.php?zip=' + zip + '&geo_range=' + distance;
+    } else {
+        url = 'private/referral.php';
+    }
+    $('#tree-slider').html('Finding referrals for you.');
+    $('#tree-slider').load(url, function (){
+        $('table').width($('#tree-window').width() - 20);
+        $('.addTooltip').tooltip();
+
+        //Set form values if user-defined query
+        if (zip){
+            $('#geoRange').val(distance);
+            $('#zipCode').val(zip);
+        }
+
+        //Add listener for user change
+        $('#refSubmit').click(function (e) {
+            e.preventDefault();
+            generateReferral($('#zipCode').val(),$('#geoRange').val());
+
+        });
+
+        //Add listener for user referral click
+        $('.click-through').click(function (e) {
+            if ($(this).hasClass('glyphicon-earphone')){
+                $(this).siblings('.phone-hide').show();
+            }
+            var refId = $(this).attr('data-id');
+            $.post('private/backend.php',{'action':'link_click','referral_id': refId}, function (data){
+                console.log('done');
+            });
+        });
+
+    });
+    $('#tree-window').scrollTo( 0 + 'px', {
+        axis:'x',
+        duration: slideTime,
+        easing:'easeInOutExpo',
+        onAfter: function(){
+            $('.tree-content-box:gt(0)').remove();
+        }
+    });
+}
+
+

@@ -1,6 +1,5 @@
 <?php
 session_start();
-error_reporting(~0); ini_set('display_errors', 1);
 
 require('../_CONFIG.php');
 
@@ -15,6 +14,7 @@ catch(PDOException $e)
 /*
     Log the user
 */
+
 if ($_POST['action'] === 'log'){
 
     $errors = array();
@@ -72,10 +72,10 @@ if ($_POST['action'] === 'log'){
         echo json_encode($resp);
     }
 }
+
 /*
     Record User Progress
 */
-
 
 if ($_POST['action'] === 'progress'){
 
@@ -94,6 +94,7 @@ if ($_POST['action'] === 'progress'){
 /*
     Log in user to edit tree
 */
+
 if ($_POST['action'] === 'login'){
 
     $user = $_POST['username'];
@@ -109,3 +110,13 @@ if ($_POST['action'] === 'login'){
     }
 }
 
+/*
+    Track user clicks on referrals
+*/
+
+if ($_POST['action'] === 'link_click'){
+    $q = $dbh->prepare("INSERT INTO `referrals_clicks` (`id`, `user_id`, `referral_id`, `sess_id`, `time_clicked`)
+    VALUES (NULL, :user_id, :referral_id, :sess_id, CURRENT_TIMESTAMP); ");
+    $data = array('user_id' => $_COOKIE['idt-user'], 'referral_id' => $_POST['referral_id'], 'sess_id' => $_COOKIE['idt-sess-id']); 
+    $q->execute($data);
+}
