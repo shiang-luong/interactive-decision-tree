@@ -3,7 +3,8 @@ session_start();
 if (!$_SESSION['isLoggedIn']){
     header('Location: login.php');
 }
-
+include('../_CONFIG.php');
+include('../_THEME.php');
 include('inc.general.php');
 
 $cmd = Util::makeVar( 'cmd' );
@@ -26,7 +27,7 @@ if( !empty( $revision ) ){
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Interactive Decision Tree - Editor</title>
 <link href="../public/css/editor.css" rel="stylesheet" type="text/css" />
-<link href="../public/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="../public/bower_components/bootstrap/dist/css/<?php echo BOOTSTRAP_THEME; ?>" rel="stylesheet">
 </head>
 
 <body>
@@ -39,12 +40,14 @@ if( !empty( $revision ) ){
       <span class="icon-bar"></span>
       <span class="icon-bar"></span>
     </button>
-    <a class="navbar-brand" href="#">Interactive Decision Tree - Editor</a>
+    <a class="navbar-brand" href="editTree.php">Interactive Decision Tree - Editor</a>
   </div>
 
   <!-- Collect the nav links, forms, and other content for toggling -->
   <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
     <ul class="nav navbar-nav navbar-right">
+      <li><a href="<?php echo $_SERVER['SCRIPT_NAME']; ?>?cmd=theme-chooser">Theme</a></li>
+      <li><a href="#">Referral Sources</a></li>
       <li><a class="active" href="logout.php">Logout</a></li>
     </ul>
   </div><!-- /.navbar-collapse -->
@@ -77,6 +80,9 @@ switch( $cmd ){
 	case 'new-branch':
 		showBranchForm( $tree, $branchID );
 		break;
+	case 'theme-chooser':
+		include('theme_chooser.php');
+		break;
 	default:
 		showList( $tree );
 }
@@ -84,6 +90,7 @@ switch( $cmd ){
 </div>
 <script type="text/javascript" src="../public/js/jquery.min.js"></script>
 <script type="text/javascript" src="../public/js/editor.js"></script>
+<script type="text/javascript" src="../public/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="../public/bower_components/bootstrap/js/tooltip.js"></script>
 <script type="text/javascript" src="../public/bower_components/bootstrap/js/popover.js"></script>
 </body>

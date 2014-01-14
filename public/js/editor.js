@@ -56,4 +56,11 @@ $(document).ready( function(){
 	);
     
     $('a.help-pop').popover();
+
+    //Change theme
+    $('.container #themeChooser').on('change', function () {
+        $.post('theme_chooser.php', {'theme_val': $(this).val()}, function () {
+            console.log('done');
+        });
+    });
 });
