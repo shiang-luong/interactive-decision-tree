@@ -6,6 +6,15 @@ if (!$_SESSION['isLoggedIn']){
 
 include('../_CONFIG.php');
 include('../_THEME.php');
+
+try {
+        $dbh = new PDO("mysql:host=" . DBHOST . ";dbname=" . DATABASE_NAME , DBUSERNAME, DBPASSWD);
+    }
+catch(PDOException $e)
+    {
+        echo $e->getMessage();
+    }
+
 ?>
 
 <!DOCTYPE html>
@@ -43,3 +52,35 @@ include('../_THEME.php');
 <div class="container">
 <h1>Manage Referral Sources</h1>
 
+<div class="table-responsive">
+
+    <table class="table table-hover">
+        <thead><tr><td>Name</td><td>Address</td><td>City</td><td>Email</td><td>Phone</td><tr></thead>
+        <tbody>
+<?php 
+    $q = $dbh->prepare('SELECT * from referrals ORDER BY id asc');
+    $q->execute();
+    $rows = $q->fetchALL(PDO::FETCH_ASSOC);
+    foreach ($rows as $r) {extract($r)
+?>
+        <tr>
+        <td><?php echo $r['name'];?></td>
+        <td><?php echo $r['address'];?></td>
+        <td><?php echo $r['city'];?></td>
+        <td><?php echo $r['email'];?></td>
+        <td><?php echo $r['phone'];?></td>
+        </tr>
+    <?php
+    }
+    ?>
+        </tbody>
+    </table>
+</div>
+
+</div>
+<script type="text/javascript" src="../public/js/jquery.min.js"></script>
+<script type="text/javascript" src="../public/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../public/bower_components/bootstrap/js/tooltip.js"></script>
+<script type="text/javascript" src="../public/bower_components/bootstrap/js/popover.js"></script>
+</body>
+</html>
