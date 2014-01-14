@@ -18,18 +18,6 @@ if( !empty( $revision ) ){
 	$tree->loadRevision( $revision );
 }
 
-switch( $cmd ){
-	case 'theme-chooser':
-    $page_title = "Theme";
-    break;
-
-	case 'ref-manage':
-    $page_title = "Referral Sources";
-    break;
-
-    default:
-    $page_title = "Trees";
-}
 ?>
 <!DOCTYPE html>
 <html>
@@ -57,14 +45,14 @@ switch( $cmd ){
   <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
     <ul class="nav navbar-nav navbar-right">
       <li><a class="active" href="<?php echo $_SERVER['SCRIPT_NAME']; ?>">Trees</a></li>
-      <li><a href="<?php echo $_SERVER['SCRIPT_NAME']; ?>?cmd=theme-chooser">Theme</a></li>
-      <li><a href="#">Referral Sources</a></li>
+      <li><a href="theme_chooser.php">Theme</a></li>
+      <li><a href="referral_sources.php">Referral Sources</a></li>
       <li><a href="logout.php">Logout</a></li>
     </ul>
   </div><!-- /.navbar-collapse -->
 </nav>
 <div class="container">
-<h1><?php echo $page_title; ?></h1>
+<h1>Trees</h1>
 <div id="debug"></div>
 
 <?php
