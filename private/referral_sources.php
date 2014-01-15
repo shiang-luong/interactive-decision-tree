@@ -4,8 +4,10 @@ if (!$_SESSION['isLoggedIn']){
     header('Location: login.php');
 }
 
-include('../_CONFIG.php');
-include('../_THEME.php');
+require('../_CONFIG.php');
+require('../_THEME.php');
+require('Simple-CRUD/simpleCrud.php');
+require('Simple-CRUD/entry.php');
 
 try {
         $dbh = new PDO("mysql:host=" . DBHOST . ";dbname=" . DATABASE_NAME , DBUSERNAME, DBPASSWD);
@@ -14,6 +16,13 @@ catch(PDOException $e)
     {
         echo $e->getMessage();
     }
+
+simpleCRUD::settings(array(
+    'dbname' => DATABASE_NAME,
+    'dbhost' => DBHOST,
+    'dbuser' => DBUSERNAME,
+    'dbpass' => DBPASSWD
+));
 
 ?>
 
@@ -24,6 +33,7 @@ catch(PDOException $e)
 <title>Interactive Decision Tree - Admin</title>
 <link href="../public/css/editor.css" rel="stylesheet" type="text/css" />
 <link href="../public/bower_components/bootstrap/dist/css/<?php echo BOOTSTRAP_THEME; ?>" rel="stylesheet">
+<link href="../public/bower_components/DataTables/media/css/dataTables.bootstrap.css" rel="stylesheet">
 </head>
 
 <body>
@@ -52,10 +62,11 @@ catch(PDOException $e)
 <div class="container">
 <h1>Manage Referral Sources</h1>
 
+<p> <button class="btn btn-primary">Add</button></p>
 <div class="table-responsive">
 
     <table id="refTable" class="table table-hover">
-        <thead><tr><th>Name</th><th>Address</th><th>City</th><th>Email</th><th>Phone</th><tr></thead>
+        <thead><tr><th>Name</th><th>Address</th><th>City</th><th>Email</th><th>Phone</th></tr></thead>
         <tbody>
 <?php 
     $q = $dbh->prepare('SELECT * from referrals ORDER BY id asc');

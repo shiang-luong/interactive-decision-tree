@@ -1,6 +1,6 @@
 $(document).ready(function () {
 
-    $('#refTable').dataTable({});
+    $('#refTable').dataTable({ });
 
 
 });
