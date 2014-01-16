@@ -60,7 +60,7 @@ $(document).ready( function(){
     //Change theme
     $('.container #themeChooser').on('change', function () {
         $.post('theme_chooser.php', {'theme_val': $(this).val()}, function () {
-            console.log('done');
+            window.location.reload();
         });
     });
 });
