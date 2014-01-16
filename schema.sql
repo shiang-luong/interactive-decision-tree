@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jan 13, 2014 at 08:50 AM
+-- Generation Time: Jan 16, 2014 at 10:09 AM
 -- Server version: 5.5.34
 -- PHP Version: 5.3.10-1ubuntu3.9
 
@@ -47,7 +47,7 @@ CREATE TABLE IF NOT EXISTS `referrals` (
   `loc` varchar(250) NOT NULL,
   `status` varchar(10) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=32 ;
 
 -- --------------------------------------------------------
 
@@ -60,7 +60,22 @@ CREATE TABLE IF NOT EXISTS `referrals_assoc_tree` (
   `referral_id` int(11) NOT NULL,
   `assoc_tree` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=13 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `referrals_clicks`
+--
+
+CREATE TABLE IF NOT EXISTS `referrals_clicks` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` varchar(100) NOT NULL,
+  `referral_id` varchar(100) NOT NULL,
+  `sess_id` varchar(100) NOT NULL,
+  `time_clicked` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 -- --------------------------------------------------------
 
@@ -75,7 +90,7 @@ CREATE TABLE IF NOT EXISTS `sessions` (
   `time_started` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP,
   `last_link_clicked` varchar(20) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=32 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=129 ;
 
 -- --------------------------------------------------------
 
