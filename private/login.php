@@ -1,6 +1,7 @@
 <?php 
 
 require('../_CONFIG.php');
+require('../_THEME.php');
 ?>
 
 <!DOCTYPE html>
@@ -9,7 +10,7 @@ require('../_CONFIG.php');
     <title>Interactive Decision Tree - Login</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Bootstrap -->
-    <link href="../public/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../public/bower_components/bootstrap/dist/css/<?php echo BOOTSTRAP_THEME; ?>" rel="stylesheet">
     <link href="../public/css/decisionTree.css" rel="stylesheet">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->

@@ -6,8 +6,6 @@ if (!$_SESSION['isLoggedIn']){
 
 require('../_CONFIG.php');
 require('../_THEME.php');
-require('Simple-CRUD/simpleCrud.php');
-require('Simple-CRUD/entry.php');
 
 try {
         $dbh = new PDO("mysql:host=" . DBHOST . ";dbname=" . DATABASE_NAME , DBUSERNAME, DBPASSWD);
@@ -17,12 +15,6 @@ catch(PDOException $e)
         echo $e->getMessage();
     }
 
-simpleCRUD::settings(array(
-    'dbname' => DATABASE_NAME,
-    'dbhost' => DBHOST,
-    'dbuser' => DBUSERNAME,
-    'dbpass' => DBPASSWD
-));
 
 ?>
 
@@ -60,41 +52,193 @@ simpleCRUD::settings(array(
   </div><!-- /.navbar-collapse -->
 </nav>
 <div class="container">
-<h1>Manage Referral Sources</h1>
-
-<p> <button class="btn btn-primary">Add</button></p>
-<div class="table-responsive">
-
-    <table id="refTable" class="table table-hover">
-        <thead><tr><th>Name</th><th>Address</th><th>City</th><th>Email</th><th>Phone</th></tr></thead>
-        <tbody>
-<?php 
-    $q = $dbh->prepare('SELECT * from referrals ORDER BY id asc');
-    $q->execute();
-    $rows = $q->fetchALL(PDO::FETCH_ASSOC);
-    foreach ($rows as $r) {extract($r)
-?>
-        <tr>
-        <td><?php echo $r['name'];?></td>
-        <td><?php echo $r['address'];?></td>
-        <td><?php echo $r['city'];?></td>
-        <td><?php echo $r['email'];?></td>
-        <td><?php echo $r['phone'];?></td>
-        </tr>
-    <?php
-    }
-    ?>
-        </tbody>
-    </table>
+<div class="row">
+    <div class="notify alert">
+        <div class="notify-text"></div>
+    </div>
 </div>
+<h1>Manage Referral Sources</h1>
+<div class = "ref-container">
+<p> <button class="btn btn-primary ref-add">Add</button></p>
+    <div class="table-responsive">
 
+        <table id="refTable" class="table table-hover">
+            <thead><tr><th>Name</th><th>Address</th><th>City</th><th>Email</th><th>Phone</th></tr></thead>
+            <tbody>
+    <?php 
+        $q = $dbh->prepare('SELECT * from referrals ORDER BY id asc');
+        $q->execute();
+        $rows = $q->fetchALL(PDO::FETCH_ASSOC);
+        foreach ($rows as $r) {extract($r)
+    ?>
+            <tr data-id="<?php echo $r['id'] ?>">
+            <td><?php echo $r['name'];?></td>
+            <td><?php echo $r['address'];?></td>
+            <td><?php echo $r['city'];?></td>
+            <td><?php echo $r['email'];?></td>
+            <td><?php echo $r['phone'];?></td>
+            </tr>
+        <?php
+        }
+        ?>
+            </tbody>
+        </table>
+    </div>
+</div>
 </div>
 <script type="text/javascript" src="../public/js/jquery.min.js"></script>
 <script type="text/javascript" src="../public/js/referralSources.js"></script>
+<script type="text/javascript" src="../public/js/jquery.validate.min.js"></script>
+<script type="text/javascript" src="../public/js/additional-methods.js"></script>
 <script type="text/javascript" src="../public/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="../public/bower_components/bootstrap/js/tooltip.js"></script>
 <script type="text/javascript" src="../public/bower_components/bootstrap/js/popover.js"></script>
+<script type="text/javascript" src="../public/bower_components/handlebars/handlebars.min.js"></script>
 <script type="text/javascript" src="../public/bower_components/DataTables/media/js/jquery.dataTables.js"></script>
 <script type="text/javascript" src="../public/bower_components/DataTables/media/js/dataTables.bootstrap.js"></script>
+
+<script id="view-template" type="text/x-handlebars-template">
+        <dl class="dl-horizontal">
+            <dt>Name</dt>
+            <dd>{{name}}<dd>
+            <dt>Email</dt>
+            <dd>{{email}}<dd>
+            <dt>Phone</dt>
+            <dd>{{phone}}<dd>
+            <dt>Address</dt>
+            <dd>{{address}}<dd>
+            <dt>City</dt>
+            <dd>{{city}}<dd>
+            <dt>State</dt>
+            <dd>{{state}}<dd>
+            <dt>Zip</dt>
+            <dd>{{zip}}<dd>
+            <dt>Status</dt>
+            <dd>{{status}}<dd>
+        </dl>
+<button class="btn btn-default refUpdate">Edit</button>
+</script>
+<script id="update-template" type="text/x-handlebars-template">
+<form class="form-horizontal" role="form">
+  <div class="form-group">
+    <label for="refName" class="col-sm-2 control-label">Name</label>
+    <div class="col-sm-10">
+      <input type="text" name = "name" class="form-control" id="refName" value="{{name}}" class="required" required>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="refEmail" class="col-sm-2 control-label">Email</label>
+    <div class="col-sm-10">
+      <input type="email" name = "email" class="form-control" id="refEmail" value="{{email}}" class="required email">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="refPhone" class="col-sm-2 control-label">Phone</label>
+    <div class="col-sm-10">
+      <input type="tel" name = "phone" class="form-control" id="refPhone" value="{{phone}}" class="required phoneUS">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="refAddress" class="col-sm-2 control-label">Address</label>
+    <div class="col-sm-6">
+      <textarea name = "address" class="form-control" id="refaddress"  class="required">{{address}}</textarea>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="refCity" class="col-sm-2 control-label">City</label>
+    <div class="col-sm-10">
+      <input type="text" name = "city" class="form-control" id="refCity" value="{{city}}" class="required">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="refState" class="col-sm-2 control-label">State</label>
+    <div class="col-sm-10">
+      <input type="text" name = "state" class="form-control" id="refState" value="{{state}}" class="required">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="refZip" class="col-sm-2 control-label">Zip</label>
+    <div class="col-sm-10">
+      <input type="text" name = "zip" class="form-control" id="refZip" value="{{zip}}" class="required">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="refStatus" class="col-sm-2 control-label">Status</label>
+    <div class="col-sm-10">
+      <select name = "Status" class="form-control" id="refStatus">
+        <option value="active" selected=selected>Active</option>
+        <option value="inactive">Inactive</option>
+    </div>
+  </div>
+  <input type="hidden" name="id" value="{{id}}">
+  <input type="hidden" name="action" value="update">
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <button type="submit" class="btn btn-default ref-update">Edit</button>
+    </div>
+  </div>
+</form>
+</script>
+<script id="add-template" type="text/x-handlebars-template">
+
+<form class="form-horizontal" role="form">
+  <div class="form-group">
+    <label for="refName" class="col-sm-2 control-label">Name</label>
+    <div class="col-sm-10">
+      <input type="text" name = "name" class="form-control" id="refName" placeholder="Name" class="required" required>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="refEmail" class="col-sm-2 control-label">Email</label>
+    <div class="col-sm-10">
+      <input type="email" name = "email" class="form-control" id="refEmail" placeholder="Email" class="required email">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="refPhone" class="col-sm-2 control-label">Phone</label>
+    <div class="col-sm-10">
+      <input type="tel" name = "phone" class="form-control" id="refPhone" placeholder="Phone" class="required phoneUS">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="refAddress" class="col-sm-2 control-label">Address</label>
+    <div class="col-sm-6">
+      <textarea name = "address" class="form-control" id="refaddress"  class="required"></textarea>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="refCity" class="col-sm-2 control-label">City</label>
+    <div class="col-sm-10">
+      <input type="text" name = "city" class="form-control" id="refCity" placeholder="City" class="required">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="refState" class="col-sm-2 control-label">State</label>
+    <div class="col-sm-10">
+      <input type="text" name = "state" class="form-control" id="refState" placeholder="State" class="required">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="refZip" class="col-sm-2 control-label">Zip</label>
+    <div class="col-sm-10">
+      <input type="text" name = "zip" class="form-control" id="refZip" placeholder="Zip" class="required">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="refStatus" class="col-sm-2 control-label">Status</label>
+    <div class="col-sm-10">
+      <select name = "Status" class="form-control" id="refStatus">
+        <option value="active" selected=selected>Active</option>
+        <option value="inactive">Inactive</option>
+    </div>
+  </div>
+  <input type="hidden" name="action" value="create">
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <button type="submit" class="btn btn-default">Add</button>
+    </div>
+  </div>
+</form>
+</script>
 </body>
 </html>

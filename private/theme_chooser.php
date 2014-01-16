@@ -5,7 +5,6 @@ if (!$_SESSION['isLoggedIn']){
 }
 include('../_CONFIG.php');
 include('../_THEME.php');
-include('../_THEME.php');
 
 if ($_POST){
     $f = fopen('../_THEME.php', 'w') or die("can't open file");

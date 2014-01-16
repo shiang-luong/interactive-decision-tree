@@ -1,4 +1,8 @@
 <?php
+session_start();
+if (!$_SESSION['isLoggedIn']){
+    header('Location: login.php');
+}
 
 require('../_CONFIG.php');
 
@@ -43,6 +47,10 @@ switch($_POST['action']){
     $q = $dbh->prepare("INSERT INTO referrals (" . $d['columns'] .") VALUES (" . $d['values'] . ")");
     $q->execute($d['data']);
     $e = $q->errorInfo();
+    if(!$e[1]){
+        $last_id = $dbh->lastInsertId();
+        echo json_encode(array('status'=>'OK', 'message'=>'Added successfully','last_id' => $last_id));
+    }
     break;
 
     case 'read':
@@ -57,6 +65,9 @@ switch($_POST['action']){
     $d = bindPostVals($_POST);
     $q = $dbh->prepare("UPDATE referrals SET" .  $d['update'] ." WHERE id = :id ");
     $q->execute($d['data']);
+    if(!$e[1]){
+        echo json_encode(array('status'=>'OK', 'message'=>'Edited successfully','last_id' => $_POST['id']));
+    }
     break;
 
     case 'delete':
@@ -65,3 +76,5 @@ switch($_POST['action']){
     $q->execute($d['data']);
     break;
 }
+
+
