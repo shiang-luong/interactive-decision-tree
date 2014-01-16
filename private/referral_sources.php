@@ -116,7 +116,8 @@ catch(PDOException $e)
             <dt>Status</dt>
             <dd>{{status}}<dd>
         </dl>
-<button class="btn btn-default refUpdate">Edit</button>
+<button class="btn btn-default ref-update">Edit</button>
+<button class="btn btn-default ref-delete">Delete</button>
 </script>
 <script id="update-template" type="text/x-handlebars-template">
 <form class="form-horizontal" role="form">

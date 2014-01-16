@@ -59,6 +59,13 @@ $(document).ready(function () {
         });
     });
 
+    //Delete Referral
+    $('.container').on('click','.ref-delete', function (e) {
+        e.preventDefault();
+        alert('delete?');
+    });
+
+    //Click a table row
     $('tbody tr').click(function (event){
         event.preventDefault();
         var itemId = $(this).attr('data-id');
@@ -67,7 +74,7 @@ $(document).ready(function () {
             source   = $('#view-template').html();
             template = Handlebars.compile(source);
             $('.ref-container').html(template(resp));
-            $('.refUpdate').click(function (e) {
+            $('.ref-update').click(function (e) {
                 $.post('../private/referral_crud.php', {'action': 'read', 'id': itemId}, function (data){
                     resp = $.parseJSON(data);
                     source   = $('#update-template').html();
