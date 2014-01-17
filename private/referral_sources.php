@@ -98,6 +98,9 @@ catch(PDOException $e)
 <script type="text/javascript" src="../public/bower_components/DataTables/media/js/dataTables.bootstrap.js"></script>
 
 <script id="view-template" type="text/x-handlebars-template">
+
+<div class="center-block">
+    <button class="btn btn-primary" onClick="window.location.reload();">&#171; Back</button>
         <dl class="dl-horizontal">
             <dt>Name</dt>
             <dd>{{name}}<dd>
@@ -116,8 +119,9 @@ catch(PDOException $e)
             <dt>Status</dt>
             <dd>{{status}}<dd>
         </dl>
-<button class="btn btn-default ref-update">Edit</button>
-<button class="btn btn-default ref-delete">Delete</button>
+    <button class="btn btn-default ref-edit">Edit</button>
+    <button class="btn btn-default ref-delete" data-id="{{id}}">Delete</button>
+</div>
 </script>
 <script id="update-template" type="text/x-handlebars-template">
 <form class="form-horizontal" role="form">
@@ -175,6 +179,7 @@ catch(PDOException $e)
   <input type="hidden" name="action" value="update">
   <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">
+      <button type="submit" class="btn btn-default" onClick="window.location.reload();">Cancel</button>
       <button type="submit" class="btn btn-default ref-update">Edit</button>
     </div>
   </div>
@@ -234,12 +239,17 @@ catch(PDOException $e)
     </div>
   </div>
   <input type="hidden" name="action" value="create">
+  <br />
   <div class="form-group">
-    <div class="col-sm-offset-2 col-sm-10">
-      <button type="submit" class="btn btn-default">Add</button>
-    </div>
+    <button type="submit" class="btn btn-default">Add</button>
+    <button type="submit" class="btn btn-default" onClick="window.location.reload();">Cancel</button>
   </div>
 </form>
+</script>
+<script id="deleted-template" type="text/x-handlebars-template">
+<div class="center-block">
+    <button class="btn btn-primary" onClick="window.location.reload();">Show All</button>
+</div>
 </script>
 </body>
 </html>

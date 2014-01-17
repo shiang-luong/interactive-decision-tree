@@ -37,6 +37,18 @@ $(document).ready(function () {
 
     });
 
+    //Request Edit
+    $('.container').on('click', '.ref-edit', function (e) {
+        var itemId = $(this).attr('data-id');
+        $.post('../private/referral_crud.php', {'action': 'read', 'id': itemId}, function (data){
+            resp = $.parseJSON(data);
+            source   = $('#update-template').html();
+            template = Handlebars.compile(source);
+            $('.ref-container').html(template(resp));
+            $('form').validate({ });
+        });
+    });
+
     //Edit referral
     $('.container').on('click','.ref-update', function (e) {
         e.preventDefault();
@@ -62,7 +74,27 @@ $(document).ready(function () {
     //Delete Referral
     $('.container').on('click','.ref-delete', function (e) {
         e.preventDefault();
-        alert('delete?');
+        var ok = confirm('This will delete this record.  Are You Sure?');
+        if (ok){
+            var itemId = $(this).attr('data-id');
+            $.post('../private/referral_crud.php', {'action':'delete','id': itemId}, function (data){
+                var resp = $.parseJSON(data);
+                if (resp.status === 'OK'){
+                    $('.notify-text').html(resp.message);
+                    $('.notify').addClass('alert-success').show().delay(2500).fadeOut();
+                    $.post('../private/referral_crud.php',{'action':'read','id': resp.last_id}, function (d){
+                        resp = $.parseJSON(d);
+                        source   = $('#deleted-template').html();
+                        template = Handlebars.compile(source);
+                        $('.ref-container').html(template(resp));
+                    });
+                } else {
+                    $('.notify-text').html(resp.message);
+                    $('.notify').addClass('alert-danger').show().delay(2500).fadeOut();
+
+                }
+            });
+        }
     });
 
     //Click a table row
@@ -74,15 +106,6 @@ $(document).ready(function () {
             source   = $('#view-template').html();
             template = Handlebars.compile(source);
             $('.ref-container').html(template(resp));
-            $('.ref-update').click(function (e) {
-                $.post('../private/referral_crud.php', {'action': 'read', 'id': itemId}, function (data){
-                    resp = $.parseJSON(data);
-                    source   = $('#update-template').html();
-                    template = Handlebars.compile(source);
-                    $('.ref-container').html(template(resp));
-                    $('form').validate({ });
-                });
-            });
         });
     });
 

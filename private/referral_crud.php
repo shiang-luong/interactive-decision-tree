@@ -50,6 +50,8 @@ switch($_POST['action']){
     if(!$e[1]){
         $last_id = $dbh->lastInsertId();
         echo json_encode(array('status'=>'OK', 'message'=>'Added successfully','last_id' => $last_id));
+    } else {
+        echo json_encode(array('status'=>'ERROR', 'message'=>'Error Adding: ' . $e[1]));
     }
     break;
 
@@ -67,13 +69,22 @@ switch($_POST['action']){
     $q->execute($d['data']);
     if(!$e[1]){
         echo json_encode(array('status'=>'OK', 'message'=>'Edited successfully','last_id' => $_POST['id']));
+    } else {
+        echo json_encode(array('status'=>'ERROR', 'message'=>'Error Editing: ' . $e[1]));
     }
+
     break;
 
     case 'delete':
     $d = bindPostVals($_POST);
     $q = $dbh->prepare("DELETE FROM referrals  WHERE id = :id ");
     $q->execute($d['data']);
+    if(!$e[1]){
+        echo json_encode(array('status'=>'OK', 'message'=>'Deleted successfully','last_id' => $_POST['id']));
+    } else {
+        echo json_encode(array('status'=>'ERROR', 'message'=>'Error Deleting: ' . $e[1]));
+    }
+
     break;
 }
 
