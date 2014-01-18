@@ -38,7 +38,7 @@ if ($_POST){
   <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
     <ul class="nav navbar-nav navbar-right">
       <li><a href="editTree.php">Trees</a></li>
-      <li><a class="active" href="theme_chooser.php">Theme</a></li>
+      <li><a class="active" href="theme_chooser.php">Themes</a></li>
       <li><a href="referral_sources.php">Referral Sources</a></li>
       <li><a href="logout.php">Logout</a></li>
     </ul>
