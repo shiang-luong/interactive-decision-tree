@@ -2,14 +2,7 @@
 session_start();
 
 require('../_CONFIG.php');
-
-try {
-        $dbh = new PDO("mysql:host=" . DBHOST . ";dbname=" . DATABASE_NAME , DBUSERNAME, DBPASSWD);
-    }
-catch(PDOException $e)
-    {
-        echo $e->getMessage();
-    }
+require('db.php');
 
 /*
     Log the user

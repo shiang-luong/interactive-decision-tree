@@ -71,6 +71,17 @@ $(document).ready(function () {
         });
     });
 
+    //Cancel edit
+    $('.container').on('click','.ref-cancel-update', function (e) {
+        var itemId = $(this).attr('data-id');
+        $.post('../private/referral_crud.php',{'action':'read','id': itemId}, function (d){
+            resp = $.parseJSON(d);
+            source   = $('#view-template').html();
+            template = Handlebars.compile(source);
+            $('.ref-container').html(template(resp));
+        });
+    });
+
     //Delete Referral
     $('.container').on('click','.ref-delete', function (e) {
         e.preventDefault();

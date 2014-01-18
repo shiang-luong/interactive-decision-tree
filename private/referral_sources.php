@@ -6,14 +6,7 @@ if (!$_SESSION['isLoggedIn']){
 
 require('../_CONFIG.php');
 require('../_THEME.php');
-
-try {
-        $dbh = new PDO("mysql:host=" . DBHOST . ";dbname=" . DATABASE_NAME , DBUSERNAME, DBPASSWD);
-    }
-catch(PDOException $e)
-    {
-        echo $e->getMessage();
-    }
+require('db.php');
 
 
 ?>
@@ -118,9 +111,9 @@ catch(PDOException $e)
             <dd>{{zip}}<dd>
             <dt>Status</dt>
             <dd>{{status}}<dd>
+            <button class="btn btn-default ref-edit" data-id="{{id}}">Edit</button>
+            <button class="btn btn-default ref-delete" data-id="{{id}}">Delete</button>
         </dl>
-    <button class="btn btn-default ref-edit">Edit</button>
-    <button class="btn btn-default ref-delete" data-id="{{id}}">Delete</button>
 </div>
 </script>
 <script id="update-template" type="text/x-handlebars-template">
@@ -177,10 +170,11 @@ catch(PDOException $e)
   </div>
   <input type="hidden" name="id" value="{{id}}">
   <input type="hidden" name="action" value="update">
+  <br />
   <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">
-      <button type="submit" class="btn btn-default" onClick="window.location.reload();">Cancel</button>
-      <button type="submit" class="btn btn-default ref-update">Edit</button>
+      <button type="submit" class="btn btn-default ref-update">Save</button>
+      <button type="submit" class="btn btn-default ref-cancel-update" data-id="{{id}}" >Cancel</button>
     </div>
   </div>
 </form>
