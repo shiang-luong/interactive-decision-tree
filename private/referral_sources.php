@@ -31,7 +31,7 @@ require('db.php');
       <span class="icon-bar"></span>
       <span class="icon-bar"></span>
     </button>
-    <a class="navbar-brand" href="editTree.php">Interactive Decision Tree - Admin</a>
+    <a class="navbar-brand" href="editTree.php">Interactive Decision Tree</a>
   </div>
 
   <!-- Collect the nav links, forms, and other content for toggling -->

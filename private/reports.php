@@ -26,14 +26,14 @@ include('../_THEME.php');
       <span class="icon-bar"></span>
       <span class="icon-bar"></span>
     </button>
-    <a class="navbar-brand" href="editTree.php">Interactive Decision Tree - Admin</a>
+    <a class="navbar-brand" href="editTree.php">Interactive Decision Tree</a>
   </div>
 
   <!-- Collect the nav links, forms, and other content for toggling -->
   <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
     <ul class="nav navbar-nav navbar-right">
       <li><a href="editTree.php">Trees</a></li>
-      <li><a  href="theme_chooser.php">Themes</a></li>
+      <li><a href="theme_chooser.php">Themes</a></li>
       <li><a href="referral_sources.php">Referral Sources</a></li>
       <li><a class="active" href="reports.php">Reports</a></li>
       <li><a href="logout.php">Logout</a></li>
@@ -41,7 +41,7 @@ include('../_THEME.php');
   </div><!-- /.navbar-collapse -->
 </nav>
 <div class="container">
-<h1>Themes</h1>
+<h1>Reports</h1>
 <p class="lead">Reports to Go Here</p>
 
 </div>

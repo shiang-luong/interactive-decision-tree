@@ -3,6 +3,8 @@ session_start();
 
 require('../_CONFIG.php');
 require('db.php');
+require('inc.general.php');
+require('class.decisiontree.php');
 
 /*
     Log the user
@@ -112,4 +114,29 @@ if ($_POST['action'] === 'link_click'){
     VALUES (NULL, :user_id, :referral_id, :sess_id, CURRENT_TIMESTAMP); ");
     $data = array('user_id' => $_COOKIE['idt-user'], 'referral_id' => $_POST['referral_id'], 'sess_id' => $_COOKIE['idt-sess-id']); 
     $q->execute($data);
+}
+
+/*
+    Get List of Trees and Their Titles
+*/
+
+
+if ($_GET['action'] === 'get_trees'){
+    //Get all xml files by id, title
+    if ($handle = opendir('../xml')) {
+        $tree_data = array();
+
+        while (false !== ($entry = readdir($handle))) {
+            $file = explode('.', $entry);
+            $tree_id = substr($file[0], 4);
+            if ($file[1] === 'xml'){//exclude revisions
+                $tree = new DecisionTree($entry);
+                $tree_data[$tree_id] = $tree->title;
+            }
+        }
+
+        closedir($handle);
+    }
+
+    echo json_encode($tree_data);
 }
