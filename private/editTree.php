@@ -47,6 +47,7 @@ if( !empty( $revision ) ){
       <li><a class="active" href="<?php echo $_SERVER['SCRIPT_NAME']; ?>">Trees</a></li>
       <li><a href="theme_chooser.php">Theme</a></li>
       <li><a href="referral_sources.php">Referral Sources</a></li>
+      <li><a href="reports.php">Reports</a></li>
       <li><a href="logout.php">Logout</a></li>
     </ul>
   </div><!-- /.navbar-collapse -->

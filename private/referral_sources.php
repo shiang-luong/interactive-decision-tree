@@ -40,6 +40,7 @@ require('db.php');
       <li><a href="editTree.php">Trees</a></li>
       <li><a href="theme_chooser.php">Themes</a></li>
       <li><a class="active" href="referral_sources.php">Referral Sources</a></li>
+      <li><a href="reports.php">Reports</a></li>
       <li><a href="logout.php">Logout</a></li>
     </ul>
   </div><!-- /.navbar-collapse -->

@@ -6,11 +6,6 @@ if (!$_SESSION['isLoggedIn']){
 include('../_CONFIG.php');
 include('../_THEME.php');
 
-if ($_POST){
-    $f = fopen('../_THEME.php', 'w') or die("can't open file");
-    fwrite($f, '<?php define("BOOTSTRAP_THEME","' . htmlspecialchars($_POST['theme_val']) . '");');
-    fclose($f);
-}
 ?>
 <!DOCTYPE html>
 <html>
@@ -38,35 +33,17 @@ if ($_POST){
   <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
     <ul class="nav navbar-nav navbar-right">
       <li><a href="editTree.php">Trees</a></li>
-      <li><a class="active" href="theme_chooser.php">Themes</a></li>
+      <li><a  href="theme_chooser.php">Themes</a></li>
       <li><a href="referral_sources.php">Referral Sources</a></li>
-      <li><a href="reports.php">Reports</a></li>
+      <li><a class="active" href="reports.php">Reports</a></li>
       <li><a href="logout.php">Logout</a></li>
     </ul>
   </div><!-- /.navbar-collapse -->
 </nav>
 <div class="container">
 <h1>Themes</h1>
-<p class="lead">Please select a theme.</p>
-<select id="themeChooser">
-<?php
+<p class="lead">Reports to Go Here</p>
 
-if ($handle = opendir('../public/bower_components/bootstrap/dist/css')) {
-
-    while (false !== ($entry = readdir($handle))) {
-        $theme_parts = explode('.', $entry);
-        $theme_name = ucFirst($theme_parts[0]);
-        if ($entry === BOOTSTRAP_THEME){
-            echo "<option value='$entry' selected=selected>$theme_name</option>";
-        } else {
-            echo "<option value='$entry'>$theme_name</option>";
-        }
-    }
-
-    closedir($handle);
-}
-?>
-</select>
 </div>
 <script type="text/javascript" src="../public/js/jquery.min.js"></script>
 <script type="text/javascript" src="../public/js/editor.js"></script>
