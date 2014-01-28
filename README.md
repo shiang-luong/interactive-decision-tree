@@ -1,10 +1,10 @@
 ## Introduction
 
 This is a fork of [HungryMedia's Interactive-Decision-Tree](https://github.com/hungrymedia/interactive-decision-tree)
-which is a great tool for quickly implementing web-based decision trees.  Decision trees are a userful tool for law-related sites to
+which is a great tool for quickly implementing web-based decision trees.  Decision trees are a userful way for law-related sites to
 help users evaluate potential claims. More information about this project is available on the [LoyolaLawTech site](http://loyolalawtech.org/github-forking-and-access-to-justice/).
 
-A demo decision tree which helps users with criminal records expungements is [http://loyolalawtech.org/idt/index.php?1374682207](available here).
+A demo decision tree which helps users with criminal records expungements is [available here](http://loyolalawtech.org/idt/index.php?1374682207).
 
 A demo of the admin backend can be found [here](http://loyolalawtech.org/idt/private/login.php) [user:admin, pass: admin].
 
