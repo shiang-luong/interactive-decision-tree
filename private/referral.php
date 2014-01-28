@@ -50,7 +50,7 @@ $ref_data = $refs->fetchAll(PDO::FETCH_ASSOC);
 Find referrals that are near the user
 */
 
-//If user has provide zip, use that; otherwise, use ip geolocation previously stored in db
+//If user has provided zip, use that; otherwise, use ip geolocation previously stored in db
 if ($zip){
     $geo_val = $zip;
 } else {
@@ -72,6 +72,7 @@ foreach ($ref_data as $ref) {
         $nearby[] = $ref;
     }
 }
+
 ?>
 
 <h3>Nearby Referrals</h3>
@@ -99,14 +100,19 @@ foreach ($ref_data as $ref) {
 </form>
 <table class="table">
 <?php
-foreach ($nearby as $n) { extract($n) ?>
-    <tr><td><a class="addTooltip click-through" title="Visit website" href="<?php echo $url; ?>" target="_new"  data-id="<?php echo $id; ?>">
-    <?php echo $n['name']; ?></a></td><td><?php echo $n['address']; ?>, <?php echo $city; ?></td>
-    <td><span class="glyphicon glyphicon-earphone click-through addTooltip" data-id="<?php echo $id; ?>"  title="Click for phone number"></span>
-    <span class="phone-hide"><?php echo $phone; ?></span></td></tr> 
+if (empty($nearby)){
+
+    echo "<p>Sorry, we couldn't find any referrals near you.</p>";
+
+} else {
+
+    foreach ($nearby as $n) { extract($n) ?>
+        <tr><td><a class="addTooltip click-through" title="Visit website" href="<?php echo $url; ?>" target="_new"  data-id="<?php echo $id; ?>">
+        <?php echo $n['name']; ?></a></td><td><?php echo $n['address']; ?>, <?php echo $city; ?></td>
+        <td><span class="glyphicon glyphicon-earphone click-through addTooltip" data-id="<?php echo $id; ?>"  title="Click for phone number"></span>
+        <span class="phone-hide"><?php echo $phone; ?></span></td></tr> 
 <?php
+    }
 }
 ?>
 </table>
-
-
