@@ -39,9 +39,9 @@ $geo->execute();
 $user_geo = $geo->fetch(PDO::FETCH_ASSOC);
 
 //Get referrals for this tree
-$refs = $dbh->prepare("SELECT `referrals_assoc_tree`.`referral_id`,`referrals`.`id`,`referrals`.*,
-`referrals_assoc_tree`.`assoc_tree` FROM referrals_assoc_tree , `referrals`
- WHERE(( assoc_tree = ?) AND ( referrals.id = referral_id))");
+$refs = $dbh->prepare("SELECT `referrals_assoc_tree`.`referral_id`,`referrals`.*,                                                                                           
+`referrals_assoc_tree`.`assoc_tree`  FROM referrals_assoc_tree , `referrals`                                                                                                                 
+ WHERE(( referrals_assoc_tree.assoc_tree = '1374682207') AND ( referrals.id = referral_id) AND (referrals.status = 'active'))");
 $refs->bindParam(1,$sess_info['tree_id']);
 $refs->execute();
 $ref_data = $refs->fetchAll(PDO::FETCH_ASSOC);
