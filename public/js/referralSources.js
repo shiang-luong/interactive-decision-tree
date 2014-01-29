@@ -9,31 +9,29 @@ $(document).ready(function () {
         source   = $('#add-template').html();
         template = Handlebars.compile(source);
         $('.ref-container').html(template());
+        $('form[name="ref-add-form"]').validate({
+            submitHandler: function(form) {
+                e.preventDefault();
+                formVals = $(form).serializeArray();
+                $.post('../private/referral_crud.php', formVals, function (data){
+                    var resp = $.parseJSON(data);
+                    if (resp.status === 'OK'){
+                        $('.notify-text').html(resp.message);
+                        $('.notify').addClass('alert-success').show().delay(2500).fadeOut();
+                        $.post('../private/referral_crud.php',{'action':'read','id': resp.last_id}, function (d){
+                            resp = $.parseJSON(d);
+                            source   = $('#view-template').html();
+                            template = Handlebars.compile(source);
+                            $('.ref-container').html(template(resp));
+                        });
+                    } else {
+                        $('.notify-text').html(resp.message);
+                        $('.notify').addClass('alert-danger').show().delay(2500).fadeOut();
 
-        $('form').on('submit', function (e) {
-            e.preventDefault();
-            formVals = $(this).serializeArray();
-            $.post('../private/referral_crud.php', formVals, function (data){
-                var resp = $.parseJSON(data);
-                if (resp.status === 'OK'){
-                    $('.notify-text').html(resp.message);
-                    $('.notify').addClass('alert-success').show().delay(2500).fadeOut();
-                    $.post('../private/referral_crud.php',{'action':'read','id': resp.last_id}, function (d){
-                        resp = $.parseJSON(d);
-                        source   = $('#view-template').html();
-                        template = Handlebars.compile(source);
-                        $('.ref-container').html(template(resp));
-                    });
-                } else {
-                    $('.notify-text').html(resp.message);
-                    $('.notify').addClass('alert-danger').show().delay(2500).fadeOut();
-
-                }
-            });
-
+                    }
+                });
+            }
         });
-
-        $('form').validate({ });
 
     });
 
@@ -46,7 +44,7 @@ $(document).ready(function () {
             source   = $('#update-template').html();
             template = Handlebars.compile(source);
             $('.ref-container').html(template(resp));
-            $('form').validate({ });
+            $('form[name="ref-edit-form"]').validate();
         });
     });
 
@@ -54,21 +52,27 @@ $(document).ready(function () {
     $('.container').on('click','.ref-update', function (e) {
         e.preventDefault();
         formVals = $(this).closest('form').serializeArray();
-        $.post('../private/referral_crud.php', formVals, function (data){
-            var resp = $.parseJSON(data);
-            if (resp.status === 'OK'){
-                $('.notify-text').html(resp.message);
-                $('.notify').addClass('alert-success').show().delay(2500).fadeOut();
-                var itemId = resp.last_id;
-                $.post('../private/referral_crud.php', {'action':'read','id': itemId}, function (data){
-                    resp = $.parseJSON(data);
-                    source   = $('#view-template').html();
-                    template = Handlebars.compile(source);
-                    $('.ref-container').html(template(resp));
+        $('form[name="ref-edit-form"]').validate({
+            submitHandler: function (form) {
+                $.post('../private/referral_crud.php', formVals, function (data){
+                    var resp = $.parseJSON(data);
+                    if (resp.status === 'OK'){
+                        $('.notify-text').html(resp.message);
+                        $('.notify').addClass('alert-success').show().delay(2500).fadeOut();
+                        var itemId = resp.last_id;
+                        $.post('../private/referral_crud.php', {'action':'read','id': itemId}, function (data){
+                            resp = $.parseJSON(data);
+                            source   = $('#view-template').html();
+                            template = Handlebars.compile(source);
+                            $('.ref-container').html(template(resp));
+                        });
+                    } else {
+                        $('.notify-text').html(resp.message);
+                        $('.notify').removeClass('alert-success').addClass('alert-danger').show().delay(2500).fadeOut();
+                    }
                 });
-            } else {
-
             }
+        
         });
     });
 
