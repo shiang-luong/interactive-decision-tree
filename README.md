@@ -11,7 +11,7 @@ A demo of the admin backend can be found [here](http://loyolalawtech.org/idt/pri
 ## Requirements
 
 * PHP, with cURL installed
-* MySql
+* MySQL
 
 ## Features
 
@@ -29,7 +29,9 @@ in their area by adding the prompt text anywhere in the decision tree, enclosed 
 * Add the schema in schema.sql to your database.  
 * Put your db credentials in _CONFIG.php.
 * Navigate to http://[YOUR SERVER NAME]/interactive-decision-tree/private/editTree.php in your browser.
-* Login using the default username and password (admin/admin).
+* Login using the default username and password (admin/admin) [Note that there is no UI for adding new administrators; 
+you must add new ones in the db manually; code expects for the password to by sha1 hashed;please delete the default account
+once you have set up].
 * Begin creating your decision tree.
 
 ##License (MIT)

@@ -47,11 +47,11 @@ $(document).ready( function(){
 	
 	$('#show-reset').click( 
 	  function(e){
-	    if( $(this).is(':checked') ){
-	      $('#reset-text').prop("disabled", false);
-      }else{
-	      $('#reset-text').prop("disabled", true);
-      }
+	    if($(this).is(':checked')){
+            $('#reset-text').prop("disabled", false);
+        } else {
+            $('#reset-text').prop("disabled", true);
+        }
 	  } 
 	);
     
