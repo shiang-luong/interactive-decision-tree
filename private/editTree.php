@@ -135,18 +135,18 @@ function showTreeForm( $tree, $selectedRevision ){
 	}
 	?>
     <div class="form-group">
-        <label for="title">Title:  <a href="#" class="label label-info help-pop" data-toggle="popover" title="" 
+        <label for="title">Title:  <a href="#" class="label label-info help-pop" rel="popover" data-toggle="popover" title="" 
         data-content="The title for your decision tree will be shown at the top of the page." role="button" data-original-title="About Title">?</a></label>
         <input type="text" id="title" class="form-control" name="treeTitle" value="<?php echo $tree->title; ?>" />
     </div>
     <div class="form-group">
-        <label for="description">Description:  <a href="#" class="label label-info help-pop" data-toggle="popover" title="" 
+        <label for="description">Description:  <a href="#" class="label label-info help-pop"  rel="popover" data-toggle="popover" title="" 
         data-content="Briefly say what your decision tree is trying to do.  This will be displayed under the title on the main page"
         role="button" data-original-title="About Description">?</a></label><br />
         <textarea id="description"  class="form-control" name="treeDescription"><?php echo $tree->description; ?></textarea>
     </div>
     <div class="form-group">
-        <label for="disclaimer">Disclaimer:</label>  <a href="#" class="label label-info help-pop" data-toggle="popover" title="" 
+        <label for="disclaimer">Disclaimer:</label>  <a href="#" class="label label-info help-pop"  rel="popover" data-toggle="popover" title="" 
         data-content="A disclaimer for your decision tree.  The user will be asked to agree to the dislaimer
         before proceeding.  Leave blank if no dislaimer is wanted." role="button" data-original-title="About Disclaimer">?</a>
         <textarea id="disclaimer"  class="form-control" name="treeDisclaimer"><?php echo $tree->disclaimer; ?></textarea>

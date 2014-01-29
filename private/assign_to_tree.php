@@ -52,6 +52,12 @@ $available_trees = $tree->assignList();
 ?>
 
 <h3> Tree Assignments for <?php echo $ref_data['name']; ?></h3>
+<div>
+    <a href="#" rel="popover" class="label label-info help-pop" data-toggle="popover" title="" 
+    data-content="In order for <?php echo $ref_data['name']; ?> to appear in the list of referrals for a given tree,
+    you must assign them to that tree." role="button" data-original-title="What's This?">?</a>
+</div>
+<br />
 <button class="ref-assign-cancel" data-id="<?php echo $ref_data['id']; ?>">&#171; Back</button>
 <form name = "assignTrees">
 

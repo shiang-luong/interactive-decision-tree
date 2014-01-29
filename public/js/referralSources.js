@@ -116,7 +116,6 @@ $(document).ready(function () {
         var itemId = $(this).attr('data-id');
         $.post('../private/assign_to_tree.php',{'id': itemId}, function (data){
             $('.ref-container').html(data);
-
         });
 
     });
@@ -158,6 +157,7 @@ $(document).ready(function () {
         });
     });
 
+    $('body').popover({selector: '[rel=popover]'});
 });
 
 $(document).ajaxError(function( event, jqxhr, settings, exception ) {

@@ -55,7 +55,7 @@ $(document).ready( function(){
 	  } 
 	);
     
-    $('a.help-pop').popover();
+    $('body').popover({selector:'[rel=popover]'});
 
     //Change theme
     $('.container #themeChooser').on('change', function () {
