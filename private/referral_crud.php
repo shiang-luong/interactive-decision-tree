@@ -44,7 +44,8 @@ switch($_POST['action']){
 
     case 'create':
     //First, do geocode lookup
-    $address_url = str_replace(' ', '+', $_POST['address']) . '+' .  $_POST['zip'];
+    $address_url = str_replace(' ', '+', trim($_POST['address'])) . ',+' . str_replace(' ', '+', trim($_POST['city'])) . 
+    ',+' . str_replace(' ', '+', trim($_POST['state']));
     $ch = curl_init("http://maps.googleapis.com/maps/api/geocode/json?sensor=false&address=" . $address_url );
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);  /* return the data */
     $result = curl_exec($ch);
@@ -84,15 +85,29 @@ switch($_POST['action']){
     break;
 
     case 'update':
-    $d = bindPostVals($_POST);
-    $q = $dbh->prepare("UPDATE referrals SET" .  $d['update'] ." WHERE id = :id ");
-    $q->execute($d['data']);
-    if(!$e[1]){
-        echo json_encode(array('status'=>'OK', 'message'=>'Edited successfully','last_id' => $_POST['id']));
-    } else {
-        echo json_encode(array('status'=>'ERROR', 'message'=>'Error Editing: ' . $e[1]));
-    }
+    //First, do geocode lookup
+    $address_url = str_replace(' ', '+', trim($_POST['address'])) . ',+' . str_replace(' ', '+', trim($_POST['city'])) . 
+    ',+' . str_replace(' ', '+', trim($_POST['state'])) ;
+    $ch = curl_init("http://maps.googleapis.com/maps/api/geocode/json?sensor=false&address=" . $address_url );
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);  /* return the data */
+    $result = curl_exec($ch);
+    curl_close($ch);
+    $json = json_decode($result);
+    $geo_result =  $json->results[0];
+    $coordinates = $geo_result->geometry->location;
 
+    if ($geo_result->types[0] == 'street_address'){ //successful query
+        $d = bindPostVals($_POST);
+        $q = $dbh->prepare("UPDATE referrals SET" .  $d['update'] ." WHERE id = :id ");
+        $q->execute($d['data']);
+        if(!$e[1]){
+            echo json_encode(array('status'=>'OK', 'message'=>'Edited successfully','last_id' => $_POST['id']));
+        } else {
+            echo json_encode(array('status'=>'ERROR', 'message'=>'Error Editing: ' . $e[1]));
+        }
+    } else {
+            echo json_encode(array('status'=>'ERROR', 'message'=>'Error: Make sure the address and zip are valid.'));
+    }
     break;
 
     case 'delete':
