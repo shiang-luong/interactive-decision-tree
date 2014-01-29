@@ -20,7 +20,6 @@ if ($_POST['action'] === 'log'){
         VALUES (NULL, :user_id, :user_ip, :city, :region, :loc,  :zip, CURRENT_TIMESTAMP);");
         $user_id = uniqid();
         $user_ip = $_SERVER['REMOTE_ADDR'];
-        //$user_ip = '24.252.88.20';
 
         //Query ipinfo for data
         if (!function_exists('curl_init')){

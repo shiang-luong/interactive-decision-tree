@@ -104,6 +104,8 @@ require('db.php');
             <dd>{{phone}}<dd>
             <dt>Address</dt>
             <dd>{{address}}<dd>
+            <dt>Address 2</dt>
+            <dd>{{address2}}<dd>
             <dt>City</dt>
             <dd>{{city}}<dd>
             <dt>State</dt>
@@ -142,6 +144,12 @@ require('db.php');
     <label for="refAddress" class="col-sm-2 control-label">Address</label>
     <div class="col-sm-6">
       <textarea name = "address" class="form-control required" id="refaddress" >{{address}}</textarea>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="refAddress2" class="col-sm-2 control-label">Address Line 2</label>
+    <div class="col-sm-6">
+      <textarea name = "address2" class="form-control" id="refaddress2" >{{address2}}</textarea>
     </div>
   </div>
   <div class="form-group">
@@ -206,6 +214,12 @@ require('db.php');
     <label for="refAddress" class="col-sm-2 control-label">Address</label>
     <div class="col-sm-6">
       <textarea name = "address" class="form-control required" id="refaddress"></textarea>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="refAddress2" class="col-sm-2 control-label">Address Line 2</label>
+    <div class="col-sm-6">
+      <textarea name = "address2" class="form-control" id="refAddress2"></textarea>
     </div>
   </div>
   <div class="form-group">

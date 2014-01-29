@@ -48,13 +48,15 @@ CREATE TABLE IF NOT EXISTS `referrals` (
   `email` varchar(250) NOT NULL,
   `url` text NOT NULL,
   `address` text NOT NULL,
+  `address2` text NOT NULL,
   `city` varchar(250) NOT NULL,
   `state` varchar(250) NOT NULL,
   `zip` varchar(10) NOT NULL,
   `loc` varchar(250) NOT NULL,
   `status` varchar(10) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=32 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=23 ;
+
 
 -- --------------------------------------------------------
 
