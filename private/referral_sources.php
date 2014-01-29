@@ -119,47 +119,47 @@ require('db.php');
 </div>
 </script>
 <script id="update-template" type="text/x-handlebars-template">
-<form class="form-horizontal" role="form">
+<form class="form-horizontal" role="form" name="ref-edit-form">
   <div class="form-group">
     <label for="refName" class="col-sm-2 control-label">Name</label>
     <div class="col-sm-10">
-      <input type="text" name = "name" class="form-control" id="refName" value="{{name}}" class="required" required>
+      <input type="text" name = "name" class="form-control required" id="refName" value="{{name}}" >
     </div>
   </div>
   <div class="form-group">
     <label for="refEmail" class="col-sm-2 control-label">Email</label>
     <div class="col-sm-10">
-      <input type="email" name = "email" class="form-control" id="refEmail" value="{{email}}" class="required email">
+      <input type="email" name = "email" class="form-control email" id="refEmail" value="{{email}}" >
     </div>
   </div>
   <div class="form-group">
     <label for="refPhone" class="col-sm-2 control-label">Phone</label>
     <div class="col-sm-10">
-      <input type="tel" name = "phone" class="form-control" id="refPhone" value="{{phone}}" class="required phoneUS">
+      <input type="tel" name = "phone"  id="refPhone" value="{{phone}}" class="form-control required phoneUS" >
     </div>
   </div>
   <div class="form-group">
     <label for="refAddress" class="col-sm-2 control-label">Address</label>
     <div class="col-sm-6">
-      <textarea name = "address" class="form-control" id="refaddress"  class="required">{{address}}</textarea>
+      <textarea name = "address" class="form-control required" id="refaddress" >{{address}}</textarea>
     </div>
   </div>
   <div class="form-group">
     <label for="refCity" class="col-sm-2 control-label">City</label>
     <div class="col-sm-10">
-      <input type="text" name = "city" class="form-control" id="refCity" value="{{city}}" class="required">
+      <input type="text" name = "city" class="form-control required" id="refCity" value="{{city}}">
     </div>
   </div>
   <div class="form-group">
     <label for="refState" class="col-sm-2 control-label">State</label>
     <div class="col-sm-10">
-      <input type="text" name = "state" class="form-control" id="refState" value="{{state}}" class="required">
+      <input type="text" name = "state" class="form-control required" id="refState" value="{{state}}">
     </div>
   </div>
   <div class="form-group">
     <label for="refZip" class="col-sm-2 control-label">Zip</label>
     <div class="col-sm-10">
-      <input type="text" name = "zip" class="form-control" id="refZip" value="{{zip}}" class="required">
+      <input type="text" name = "zip" class="form-control required zipcodeUS" id="refZip" value="{{zip}}" >
     </div>
   </div>
   <div class="form-group">
@@ -183,47 +183,47 @@ require('db.php');
 </script>
 <script id="add-template" type="text/x-handlebars-template">
 
-<form class="form-horizontal" role="form">
+<form class="form-horizontal" role="form" name="ref-add-form">
   <div class="form-group">
     <label for="refName" class="col-sm-2 control-label">Name</label>
     <div class="col-sm-10">
-      <input type="text" name = "name" class="form-control" id="refName" placeholder="Name" class="required" required>
+      <input type="text" name = "name" class="form-control required" id="refName" placeholder="Name" >
     </div>
   </div>
   <div class="form-group">
     <label for="refEmail" class="col-sm-2 control-label">Email</label>
     <div class="col-sm-10">
-      <input type="email" name = "email" class="form-control" id="refEmail" placeholder="Email" class="required email">
+      <input type="email" name = "email" class="form-control required email" id="refEmail" placeholder="Email" >
     </div>
   </div>
   <div class="form-group">
     <label for="refPhone" class="col-sm-2 control-label">Phone</label>
     <div class="col-sm-10">
-      <input type="tel" name = "phone" class="form-control" id="refPhone" placeholder="Phone" class="required phoneUS">
+      <input type="tel" name = "phone"  id="refPhone" placeholder="Phone" class="form-control required phoneUS">
     </div>
   </div>
   <div class="form-group">
     <label for="refAddress" class="col-sm-2 control-label">Address</label>
     <div class="col-sm-6">
-      <textarea name = "address" class="form-control" id="refaddress"  class="required"></textarea>
+      <textarea name = "address" class="form-control required" id="refaddress"></textarea>
     </div>
   </div>
   <div class="form-group">
     <label for="refCity" class="col-sm-2 control-label">City</label>
     <div class="col-sm-10">
-      <input type="text" name = "city" class="form-control" id="refCity" placeholder="City" class="required">
+      <input type="text" name = "city" class="form-control required" id="refCity" placeholder="City">
     </div>
   </div>
   <div class="form-group">
     <label for="refState" class="col-sm-2 control-label">State</label>
     <div class="col-sm-10">
-      <input type="text" name = "state" class="form-control" id="refState" placeholder="State" class="required">
+      <input type="text" name = "state" class="form-control required" id="refState" placeholder="State">
     </div>
   </div>
   <div class="form-group">
     <label for="refZip" class="col-sm-2 control-label">Zip</label>
     <div class="col-sm-10">
-      <input type="text" name = "zip" class="form-control" id="refZip" placeholder="Zip" class="required">
+      <input type="text" name = "zip" class="form-control required zipcodeUS" id="refZip" placeholder="Zip">
     </div>
   </div>
   <div class="form-group">

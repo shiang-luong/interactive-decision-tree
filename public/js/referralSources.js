@@ -44,35 +44,29 @@ $(document).ready(function () {
             source   = $('#update-template').html();
             template = Handlebars.compile(source);
             $('.ref-container').html(template(resp));
-            $('form[name="ref-edit-form"]').validate();
-        });
-    });
-
-    //Edit referral
-    $('.container').on('click','.ref-update', function (e) {
-        e.preventDefault();
-        formVals = $(this).closest('form').serializeArray();
-        $('form[name="ref-edit-form"]').validate({
-            submitHandler: function (form) {
-                $.post('../private/referral_crud.php', formVals, function (data){
-                    var resp = $.parseJSON(data);
-                    if (resp.status === 'OK'){
-                        $('.notify-text').html(resp.message);
-                        $('.notify').addClass('alert-success').show().delay(2500).fadeOut();
-                        var itemId = resp.last_id;
-                        $.post('../private/referral_crud.php', {'action':'read','id': itemId}, function (data){
-                            resp = $.parseJSON(data);
-                            source   = $('#view-template').html();
-                            template = Handlebars.compile(source);
-                            $('.ref-container').html(template(resp));
-                        });
-                    } else {
-                        $('.notify-text').html(resp.message);
-                        $('.notify').removeClass('alert-success').addClass('alert-danger').show().delay(2500).fadeOut();
-                    }
-                });
-            }
-        
+            $('form[name="ref-edit-form"]').validate({
+                submitHandler: function (form) {
+                    formVals = $(form).serializeArray();
+                    $.post('../private/referral_crud.php', formVals, function (data){
+                        var resp = $.parseJSON(data);
+                        if (resp.status === 'OK'){
+                            $('.notify-text').html(resp.message);
+                            $('.notify').addClass('alert-success').show().delay(2500).fadeOut();
+                            var itemId = resp.last_id;
+                            $.post('../private/referral_crud.php', {'action':'read','id': itemId}, function (data){
+                                resp = $.parseJSON(data);
+                                source   = $('#view-template').html();
+                                template = Handlebars.compile(source);
+                                $('.ref-container').html(template(resp));
+                            });
+                        } else {
+                            $('.notify-text').html(resp.message);
+                            $('.notify').removeClass('alert-success').addClass('alert-danger').show().delay(2500).fadeOut();
+                        }
+                    });
+                }
+            
+            });
         });
     });
 
@@ -121,7 +115,6 @@ $(document).ready(function () {
         $.post('../private/assign_to_tree.php',{'id': itemId}, function (data){
             $('.ref-container').html(data);
         });
-
     });
 
     //Change the referral's tree assignment
@@ -167,7 +160,6 @@ $(document).ready(function () {
 $(document).ajaxError(function( event, jqxhr, settings, exception ) {
 
     $('.notify-text').html('<strong>Sorry!</strong> There was a problem talking to the server.');
-
     $('.notify').addClass('alert-danger').show().delay(2500).fadeOut();
 
 });
