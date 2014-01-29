@@ -200,6 +200,29 @@ class DecisionTree{
     </dl>
     <?php
 	}
+
+    function assignList () {
+
+		if( !is_dir( $this->xmlDirPath ) ){
+			die("Cannot access XML directory: $xmlDirPath");
+		}
+
+        $a_list = array();
+
+		if( $dh = opendir( $this->xmlDirPath ) ){
+			while( $file = readdir( $dh ) ){
+				if( strtolower( substr( $file, -4, 4 ) ) == '.xml' ){
+					if( $xmlData = simplexml_load_file( $this->xmlDirPath . $file ) ){
+						$treeID = str_replace( '.xml', '', substr( $file, 4 ) );
+                        $treeName = (string) $xmlData->title;
+                        $a_list[$treeID] = $treeName;
+                    }
+                }
+            }
+        }
+
+        return $a_list;
+    }
 	
 
 }

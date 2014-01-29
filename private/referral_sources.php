@@ -112,6 +112,7 @@ require('db.php');
             <dd>{{zip}}<dd>
             <dt>Status</dt>
             <dd>{{status}}<dd>
+            <button class="btn btn-success ref-assign" data-id="{{id}}">Assign To Trees</button>
             <button class="btn btn-default ref-edit" data-id="{{id}}">Edit</button>
             <button class="btn btn-default ref-delete" data-id="{{id}}">Delete</button>
         </dl>
