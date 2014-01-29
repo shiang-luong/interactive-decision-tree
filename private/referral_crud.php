@@ -115,6 +115,9 @@ switch($_POST['action']){
     $q = $dbh->prepare("DELETE FROM referrals  WHERE id = :id ");
     $q->execute($d['data']);
     if(!$e[1]){
+        $remove = $dbh->prepare('DELETE from referrals_assoc_tree where referral_id = ?');
+        $remove->bindParam(1,$_POST['id']);
+        $remove->execute();
         echo json_encode(array('status'=>'OK', 'message'=>'Deleted successfully','last_id' => $_POST['id']));
     } else {
         echo json_encode(array('status'=>'ERROR', 'message'=>'Error Deleting: ' . $e[1]));
