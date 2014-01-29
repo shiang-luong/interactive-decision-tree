@@ -43,16 +43,36 @@ function bindPostVals($query_string) {
 switch($_POST['action']){
 
     case 'create':
-    $d = bindPostVals($_POST);
-    $q = $dbh->prepare("INSERT INTO referrals (" . $d['columns'] .") VALUES (" . $d['values'] . ")");
-    $q->execute($d['data']);
-    $e = $q->errorInfo();
-    if(!$e[1]){
-        $last_id = $dbh->lastInsertId();
-        echo json_encode(array('status'=>'OK', 'message'=>'Added successfully','last_id' => $last_id));
+    //First, do geocode lookup
+    $address_url = str_replace(' ', '+', $_POST['address']) . '+' .  $_POST['zip'];
+    $ch = curl_init("http://maps.googleapis.com/maps/api/geocode/json?sensor=false&address=" . $address_url );
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);  /* return the data */
+    $result = curl_exec($ch);
+    curl_close($ch);
+    $json = json_decode($result);
+    $geo_result =  $json->results[0];
+    $coordinates = $geo_result->geometry->location;
+
+    if ($geo_result->types[0] == 'street_address'){ //successful query
+        $d = bindPostVals($_POST);
+        $q = $dbh->prepare("INSERT INTO referrals (" . $d['columns'] .") VALUES (" . $d['values'] . ")");
+        $q->execute($d['data']);
+        $e = $q->errorInfo();
+        if(!$e[1]){
+            $last_id = $dbh->lastInsertId();
+            $update = $dbh->prepare('UPDATE referrals SET loc = ? where id = ?');
+            $coord = $coordinates->lat . "," . $coordinates->lng;
+            $update->bindParam(1, $coord);
+            $update->bindParam(2, $last_id);
+            $update->execute();
+            echo json_encode(array('status'=>'OK', 'message'=>'Added successfully','last_id' => $last_id));
+        } else {
+            echo json_encode(array('status'=>'ERROR', 'message'=>'Error Adding: ' . $e[1]));
+        }
     } else {
-        echo json_encode(array('status'=>'ERROR', 'message'=>'Error Adding: ' . $e[1]));
+            echo json_encode(array('status'=>'ERROR', 'message'=>'Error: Make sure the address and zip are valid.'));
     }
+
     break;
 
     case 'read':
