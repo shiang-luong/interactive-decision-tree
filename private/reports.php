@@ -50,7 +50,7 @@ include('../_THEME.php');
                 <label for="reportType">Report Type</label>
                 <select class="form-control" name="type" id="reportType">
                     <option value="by_referrals_totals" selected=selected>Clicks by Referral</option>
-                    <option value="by_referral">All Clicks</option>
+                    <!-- TODO <option value="by_referral">All Clicks</option> -->
                     <option value="by_tree">Clicks Per Tree</option>
                 </select>
             </div>
