@@ -14,6 +14,8 @@ include('../_THEME.php');
 <title>Interactive Decision Tree - Admin</title>
 <link href="../public/css/editor.css" rel="stylesheet" type="text/css" />
 <link href="../public/bower_components/bootstrap/dist/css/<?php echo BOOTSTRAP_THEME; ?>" rel="stylesheet">
+<link href="../public/bower_components/bootstrap-datepicker/css/datepicker3.css" rel="stylesheet">
+<link href="../public/bower_components/DataTables/media/css/dataTables.bootstrap.css" rel="stylesheet">
 </head>
 
 <body>
@@ -42,13 +44,43 @@ include('../_THEME.php');
 </nav>
 <div class="container">
 <h1>Reports</h1>
-<p class="lead">Reports to Go Here</p>
+    <div class="rep-head">
+        <form class="form-inline" role="form">
+            <div class="form-group">
+                <label for="reportType">Report Type</label>
+                <select class="form-control" name="type" id="reportType">
+                    <option value="by_referrals_totals" selected=selected>Clicks by Referral</option>
+                    <option value="by_referral">All Clicks</option>
+                    <option value="by_tree">Clicks Per Tree</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="reportStart">Start Date</label>
+                <input class="datepicker sm-input form-control" name="start" id="reportStart"  data-date-format="mm/dd/yyyy" value="<?php echo  date( 'm/d/Y', strtotime('-30 days'));?>">
+            </div>
+            <div class="form-group">
+                <label for="reportEnd">End Date</label>
+                <input class="datepicker form-control sm-input" name="end" id="reportEnd"  data-date-format="mm/dd/yyyy" value="<?php echo date('m/d/Y');?>">
+            </div>
+            <div class="form-group">
+                <button class="report-go">Go</button>
+            </div>
+        </form>
+    </div>
+    <div class="rep-container">
+        <table id="repTable" class="table table-hover">
+
+        </table>
+    </div>
 
 </div>
 <script type="text/javascript" src="../public/js/jquery.min.js"></script>
-<script type="text/javascript" src="../public/js/editor.js"></script>
+<script type="text/javascript" src="../public/js/reports.js"></script>
 <script type="text/javascript" src="../public/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="../public/bower_components/bootstrap/js/tooltip.js"></script>
 <script type="text/javascript" src="../public/bower_components/bootstrap/js/popover.js"></script>
+<script type="text/javascript" src="../public/bower_components/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+<script type="text/javascript" src="../public/bower_components/DataTables/media/js/jquery.dataTables.js"></script>
+<script type="text/javascript" src="../public/bower_components/DataTables/media/js/dataTables.bootstrap.js"></script>
 </body>
 <html>

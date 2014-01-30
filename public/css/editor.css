@@ -72,3 +72,7 @@ textarea{
     width:20%;
     text-align:center;
 }
+
+.sm-input{
+    width:150px !important;
+}
