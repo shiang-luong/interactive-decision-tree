@@ -5,6 +5,7 @@ require('../_CONFIG.php');
 require('db.php');
 require('inc.general.php');
 require('class.decisiontree.php');
+header("Access-Control-Allow-Origin: *");
 
 /*
     Log the user
@@ -34,7 +35,7 @@ if ($_POST['action'] === 'log'){
         curl_close($ch);
         $json = json_decode($result);
 
-        $data = array('user_id' => $user_id, 'user_ip' => $user_ip, 'city' => $json->city, 'region' => $json->region, 'loc' => $json->loc,  'zip' => $json->postal);
+        $data = array('user_id' => $user_id, 'user_ip' => $user_ip, 'city' => $json->city, 'region' => $json->region, 'loc' => $json->loc,  'zip' => '');
         $user_add->execute($data);
 
         $error = $user_add->errorInfo();
