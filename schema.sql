@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jan 16, 2014 at 10:09 AM
--- Server version: 5.5.34
--- PHP Version: 5.3.10-1ubuntu3.9
+-- Generation Time: May 29, 2014 at 07:36 AM
+-- Server version: 5.5.28
+-- PHP Version: 5.3.10-1ubuntu3.10
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -28,13 +28,6 @@ CREATE TABLE IF NOT EXISTS `admin` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
---
--- Dumping data for table `admin`
---
-
-INSERT INTO `admin` (`id`, `username`, `password`, `email`) VALUES
-(1, 'admin', 'd033e22ae348aeb5660fc2140aec35850c4da997', 'nobody@test.org');
-
 -- --------------------------------------------------------
 
 --
@@ -55,8 +48,7 @@ CREATE TABLE IF NOT EXISTS `referrals` (
   `loc` varchar(250) NOT NULL,
   `status` varchar(10) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=23 ;
-
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
 
 -- --------------------------------------------------------
 
@@ -84,7 +76,7 @@ CREATE TABLE IF NOT EXISTS `referrals_clicks` (
   `sess_id` varchar(100) NOT NULL,
   `time_clicked` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=12 ;
 
 -- --------------------------------------------------------
 
@@ -98,8 +90,9 @@ CREATE TABLE IF NOT EXISTS `sessions` (
   `tree_id` varchar(100) NOT NULL,
   `time_started` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP,
   `last_link_clicked` varchar(20) NOT NULL,
+  `mobile` varchar(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=129 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=414 ;
 
 -- --------------------------------------------------------
 
@@ -117,5 +110,5 @@ CREATE TABLE IF NOT EXISTS `users` (
   `zip` varchar(10) NOT NULL,
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=29 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=96 ;
 
