@@ -1,1 +1,1 @@
-<?php define("BOOTSTRAP_THEME","united.bootstrap.min.css");
+<?php define("BOOTSTRAP_THEME","yeti.bootstrap.min.css");
