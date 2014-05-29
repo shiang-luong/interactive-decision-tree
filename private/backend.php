@@ -48,10 +48,16 @@ if ($_POST['action'] === 'log'){
     }
 
     //Create new session
-    $add_session =$dbh->prepare("INSERT INTO `sessions` (`id`, `user_id`, `tree_id`, `time_started`)
-    VALUES (NULL, :user_id, :tree_id, CURRENT_TIMESTAMP);");
+    if (isset($_POST['mobile'])){
+        $mobile = 1;
+    } else {
+        $mobile = 0;
+
+    }
+    $add_session =$dbh->prepare("INSERT INTO `sessions` (`id`, `user_id`, `tree_id`, `time_started`, `mobile`)
+    VALUES (NULL, :user_id, :tree_id, CURRENT_TIMESTAMP, :mobile);");
     $tree_id = $_POST['tree_id'];
-    $data = array('user_id' => $user_id, 'tree_id' => $tree_id);
+    $data = array('user_id' => $user_id, 'tree_id' => $tree_id, 'mobile' => $mobile);
     $add_session->execute($data);
     $error = $add_session->errorInfo();
     if ($error[1]){
@@ -66,6 +72,25 @@ if ($_POST['action'] === 'log'){
         $resp = array('status' => 'ERROR');
         echo json_encode($resp);
     }
+}
+
+/*
+    Update User Location
+*/
+
+if ($_POST['action'] === 'update_location'){
+
+    $loc = $_POST['lat'] . ',' . $_POST['long'];
+    $update_location = $dbh->prepare("UPDATE  `users` SET  `loc` =  :loc WHERE  `user_id` = :user_id; ");
+    $data = array('loc' => $loc, 'user_id' => $_POST['user_id']);
+    $update_location->execute($data);
+    $error = $update_location->errorInfo();
+    if ($error[1]){
+        $resp = array('status' => 'ERROR');
+    } else {
+        $resp = array('status' => 'OK');
+    }
+    echo json_encode($resp);
 }
 
 /*
