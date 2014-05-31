@@ -142,6 +142,17 @@ if ($_POST['action'] === 'link_click'){
 }
 
 /*
+    Mobile App Track user clicks on referrals
+*/
+
+if ($_POST['action'] === 'link_click_mobile'){
+    $q = $dbh->prepare("INSERT INTO `referrals_clicks` (`id`, `user_id`, `referral_id`, `sess_id`, `time_clicked`)
+    VALUES (NULL, :user_id, :referral_id, :sess_id, CURRENT_TIMESTAMP); ");
+    $data = array('user_id' => $_POST['user_id'], 'referral_id' => $_POST['referral_id'], 'sess_id' => $_POST['sess_id']); 
+    $q->execute($data);
+}
+
+/*
     Get List of Trees and Their Titles
 */
 

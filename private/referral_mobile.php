@@ -143,9 +143,10 @@ if (empty($nearby)){
     foreach ($nearby as $n) { extract($n) ?>
         
         <li class="list-group-item">
-            <a class="list-group-item click-through" title="Visit Website" href="<?php echo $url; ?>" target="_new"  data-id="<?php echo $id; ?>">
-        <h4 class="list-group-item-heading"><?php echo $n['name']; ?></h4></a>
+            <a class="external-link click-through" title="Visit Website" href="<?php echo $url; ?>" target="_new"  data-id="<?php echo $id; ?>">
+        <h4 class="list-group-item-heading"><?php echo $n['name']; ?></h4>
         <p class="list-group-item-text"><?php echo $n['address']; ?>, <?php echo $city; ?></p>
+        </a>
         <br />
         <p class="list-group-item-text">
         <a class="btn btn-default" href="tel:<?php echo $phone; ?>"><span class="glyphicon glyphicon-earphone click-through addTooltip" data-id="<?php echo $id; ?>"  title="Click for phone number"></span> <?php echo $phone; ?></a>
