@@ -20,7 +20,7 @@ A demo of the admin backend can be found [here](http://loyolalawtech.org/idt/pri
 * Includes a database to store potential referrals (lawyers, free legal service providers, etc).  Users can be prompted to see a list of referrals 
 in their area by adding the prompt text anywhere in the decision tree, enclosed in double curly braces (e.g, "{{ Get a referral }}").
 * User clicks on referral sources can be tracked in the included database.
-* Admins can run reports on user clicks on referral sources [TODO - in progress]
+* Admins can run reports on user clicks on referral sources.
 * Trees can be themed using themes from [Bootswatch](http://bootswatch.com/);
 
 ## Install
@@ -33,6 +33,10 @@ in their area by adding the prompt text anywhere in the decision tree, enclosed 
 you must add new ones in the db manually; code expects for the password to be sha1 hashed; please delete the default account
 once you have set up].
 * Begin creating your decision tree.
+
+## Mobile
+
+A port of this project optimized for mobile apps using [PhoneGap Build](https://build.phonegap.corm) can be found [here](https://github.com/judsonmitchell/idt-mobile). 
 
 ##License (MIT)
 
