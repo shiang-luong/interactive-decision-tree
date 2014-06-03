@@ -17,25 +17,25 @@ if ($_POST['action'] === 'log'){
 
     //If new user, log the user;
     if ($_POST['existing_user'] === ''){
-        $user_add = $dbh->prepare("INSERT INTO `users` (`id`, `user_id`, `user_ip`, `city`, `region`, `loc`, `zip`, `created`)
-        VALUES (NULL, :user_id, :user_ip, :city, :region, :loc,  :zip, CURRENT_TIMESTAMP);");
+        $user_add = $dbh->prepare("INSERT INTO `users` (`id`, `user_id`, `user_ip`, `created`)
+        VALUES (NULL, :user_id, :user_ip, CURRENT_TIMESTAMP);");
         $user_id = uniqid();
         $user_ip = $_SERVER['REMOTE_ADDR'];
 
         //Query ipinfo for data
-        if (!function_exists('curl_init')){
-            //We need curl to query ipinfo
-            $resp = array('status' => 'ERROR');
-            die(json_encode($resp)) ;
-        }
-                    
-        $ch = curl_init('http://ipinfo.io/' . $user_ip);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);  /* return the data */
-        $result = curl_exec($ch);
-        curl_close($ch);
-        $json = json_decode($result);
+        //if (!function_exists('curl_init')){
+        //    //We need curl to query ipinfo
+        //    $resp = array('status' => 'ERROR');
+        //    die(json_encode($resp)) ;
+        //}
+        //            
+        //$ch = curl_init('http://ipinfo.io/' . $user_ip);
+        //curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);  /* return the data */
+        //$result = curl_exec($ch);
+        //curl_close($ch);
+        //$json = json_decode($result);
 
-        $data = array('user_id' => $user_id, 'user_ip' => $user_ip, 'city' => $json->city, 'region' => $json->region, 'loc' => $json->loc,  'zip' => '');
+        $data = array('user_id' => $user_id, 'user_ip' => $user_ip);
         $user_add->execute($data);
 
         $error = $user_add->errorInfo();

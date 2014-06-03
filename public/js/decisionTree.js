@@ -168,7 +168,7 @@ function showBranch( id ){
 	decisionLinksHTML += '</div>';
     //insert referral link here
     var scanTxt;
-    scanTxt = currentBranch.content.replace('{{','<a class="referral-link" href="#" onClick="generateReferral(false, false);return false;">').replace('}}','</a>');
+    scanTxt = currentBranch.content.replace('{{','<a class="referral-link" href="#" onClick="generateReferralGeo();return false;">').replace('}}','</a>');
 	var branchHTML = '<div id="branch-' + currentBranch.id + '" class="tree-content-box"><div class="content">' + scanTxt + '</div>' + decisionLinksHTML;
 	if( currentBranch.id !== 1 ){
 		branchHTML += '<a class="back-link">&laquo; Back</a>';
@@ -192,6 +192,7 @@ function areCookiesEnabled() {
     }
     return (cookieEnabled);
 }
+/* 
 
 function generateReferral(zip, distance) {
     var url;
@@ -240,4 +241,105 @@ function generateReferral(zip, distance) {
     });
 }
 
+*/
 
+function addReferralListeners(){
+
+    //$('.panel-default').hide();
+
+    $('.ref-toggle').click(function (e){
+        $('.ref-chooser').removeClass('hidden');
+    });
+
+    //Add listener for user change
+    $('#refSubmit').click(function (e) {
+        e.preventDefault();
+        generateReferralManual($('#zipCode').val(),$('#geoRange').val());
+
+    });
+
+    //Add listener for user referral click
+    $('.click-through').click(function (e) {
+        e.preventDefault();
+        var url = $(this).attr('href');
+        var refId = $(this).attr('data-id');
+        var user = $.cookie('idt-user');
+        var sess = $.cookie('idt-sess-id');
+        var thisIsAPhone = false;
+        if ($(this).hasClass('phone-link')){
+            thisIsAPhone = true;
+        }
+
+        $.post('private/backend.php',{'action':'link_click','referral_id': refId, 'sess_id': sess, 'user_id':user}, function (data){
+
+            if (thisIsAPhone){
+                var strip = url.replace(/[^a-zA-Z\d:]/g, '');
+                window.open(strip, '_system');
+            } else {
+                window.open(url, '_system', 'location=yes');
+                //navigator.app.loadUrl(url, { openExternal:true });
+            }
+        });
+    });
+
+}
+
+function generateReferralManual(zip, distance){
+
+    var url = 'private/referral.php?zip=' + zip + '&geo_range=' + distance;
+    $('#tree-slider').load(url, function (){
+        $('#zipCode').val(zip);
+        $('#geoRange').val(distance);
+        addReferralListeners();
+    });
+}
+
+function generateReferralGeo() {
+    var sessId = $.cookie('idt-sess-id');
+
+    $('#tree-slider').html('Attempting to get your location.');
+    navigator.geolocation.getCurrentPosition(function succcess(position){
+        $.post('private/backend.php', {
+            action: 'update_location',
+            lat: position.coords.latitude,
+            long: position.coords.longitude,
+            user_id: $.cookie('idt-user')
+        },function (e){
+            $('#tree-slider').html('Finding referrals for you.');
+        });
+        $('#tree-slider').load('private/referral.php?sess_id=' + sessId, function (){
+            addReferralListeners();
+            $('.list-group').width($('#tree-window').width());
+            $('#zipCode').attr('placeholder', 'Please Provide Zip Code');
+            $('#tree-window').scrollTo( 0 + 'px', {
+                axis:'x',
+                duration: slideTime,
+                easing:'easeInOutExpo',
+                onAfter: function(){
+                    $('.tree-content-box:gt(0)').remove();
+                }
+            });
+            $('#tree-window').css({'overflow-y':'scroll'});
+        });
+    }, function fail(){
+        var zipForm = '<h3>Geolocation is unavailable.</h3>' +
+        '<form name="zip_only"><input type="number" name="zip" placeholder="Enter Your Zip Code"><button type="submit">Go</button></form>';
+        $('#tree-slider').html(zipForm);
+        $('#tree-window').scrollTo( 0 + 'px', {
+            axis:'x',
+            duration: slideTime,
+            easing:'easeInOutExpo',
+            onAfter: function(){
+                $('.tree-content-box:gt(0)').remove();
+            }
+        });
+        $('form[name="zip_only"]').submit(function (e) {
+            e.preventDefault();
+            var userZip = $(this).find('input').val();
+            generateReferralManual(userZip,'105600');
+        });
+    },
+    { maximumAge: 3000, timeout: 5000, enableHighAccuracy: true }
+    );
+
+}

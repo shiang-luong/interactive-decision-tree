@@ -50,11 +50,42 @@ $ref_data = $refs->fetchAll(PDO::FETCH_ASSOC);
 Find referrals that are near the user
 */
 
+//God Almighty
+switch ($geo_range) {
+    case '528000':
+        $geo_text = '100';
+        break;
+    case '264000':
+        $geo_text = '50';
+        break;
+    case '105600':
+        $geo_text = '20';
+        break;
+    case '52800':
+        $geo_text = '10';
+        break;
+    case '26400':
+        $geo_text = '5';
+        break;
+    case '10560':
+        $geo_text = '2';
+        break;
+    default:
+        $geo_text = '20';
+        break;
+}
+
 //If user has provided zip, use that; otherwise, use ip geolocation previously stored in db
 if ($zip){
     $geo_val = $zip;
 } else {
     $geo_val = $user_geo['loc'];
+}
+
+if ($zip){
+    $loc_text = $zip;
+} else {
+    $loc_text = 'your location';
 }
 
 $nearby = array();
@@ -76,29 +107,33 @@ foreach ($ref_data as $ref) {
 ?>
 
 <h3>Nearby Referrals</h3>
-<form id="refChooser" class="form-inline" role="form" >
-    <div class="form-group">
-        <span>Showing referrals within </span>
-    </div>
-    <div class="form-group">
-        <select  name="geo_range" class="form-control" id="geoRange">
-            <option value="528000">100</option>
-            <option value="264000">50</option>
-            <option value="105600" selected=selected>20</option>
-            <option value="52800">10</option>
-            <option value="26400">5</option>
-            <option value="10560">2</option>
-        </select>
-    </div>
-    <div class="form-group">
-        <span> miles of zip code </span>
-    </div>
-    <div class="form-group">
-        <input type="text" class="form-control" name = "zip" id="zipCode" value="<?php echo $user_geo['zip']; ?>">
-    </div>
-  <button id="refSubmit"  class="btn btn-default">Change</button>
-</form>
-<table class="table">
+<h5>Showing referrals within <?php echo $geo_text;  ?> miles of <?php echo $loc_text; ?>. <a class="ref-toggle"  href="#">Change</a>
+</h5>
+<div class="ref-chooser hidden well">
+    <form id="refChooser" class="form-inline" role="form" >
+        <div class="form-group">
+            <span>Show referrals within </span>
+        </div>
+        <div class="form-group">
+            <select  name="geo_range" class="form-control" id="geoRange">
+                <option value="528000">100</option>
+                <option value="264000">50</option>
+                <option value="105600" selected=selected>20</option>
+                <option value="52800">10</option>
+                <option value="26400">5</option>
+                <option value="10560">2</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <span> miles of zip code</span>
+        </div>
+        <div class="form-group">
+            <input type="text" class="form-control" name = "zip" id="zipCode" value="<?php echo $user_geo['zip']; ?>">
+        </div>
+    <button id="refSubmit"  class="btn btn-default">Submit</button>
+    </form>
+</div>
+<ul class="list-group">
 <?php
 if (empty($nearby)){
 
@@ -107,12 +142,20 @@ if (empty($nearby)){
 } else {
 
     foreach ($nearby as $n) { extract($n) ?>
-        <tr><td><a class="addTooltip click-through" title="Visit website" href="<?php echo $url; ?>" target="_new"  data-id="<?php echo $id; ?>">
-        <?php echo $n['name']; ?></a></td><td><?php echo $n['address']; ?>, <?php echo $city; ?></td>
-        <td><span class="glyphicon glyphicon-earphone click-through addTooltip" data-id="<?php echo $id; ?>"  title="Click for phone number"></span>
-        <span class="phone-hide"><?php echo $phone; ?></span></td></tr> 
+        
+        <li class="list-group-item">
+            <a class="external-link click-through" title="Visit Website" href="<?php echo $url; ?>" target="_new"  data-id="<?php echo $id; ?>">
+        <h4 class="list-group-item-heading"><?php echo $n['name']; ?></h4>
+        <p class="list-group-item-text"><?php echo $n['address']; ?>, <?php echo $city; ?></p>
+        </a>
+        <br />
+        <p class="list-group-item-text">
+        <a class="btn btn-default" href="tel:<?php echo $phone; ?>"><span class="glyphicon glyphicon-earphone click-through addTooltip" data-id="<?php echo $id; ?>"  title="Click for phone number"></span> <?php echo $phone; ?></a>
+        </p>
+        </li>
+
 <?php
     }
 }
 ?>
-</table>
+</ul>
