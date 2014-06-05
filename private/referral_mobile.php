@@ -149,7 +149,7 @@ if (empty($nearby)){
         </a>
         <br />
         <p class="list-group-item-text">
-        <a class="btn btn-default" href="tel:<?php echo $phone; ?>"><span class="glyphicon glyphicon-earphone click-through addTooltip" data-id="<?php echo $id; ?>"  title="Click for phone number"></span> <?php echo $phone; ?></a>
+        <a class="btn btn-default click-through phone-link" href="tel:<?php echo $phone; ?>" data-id="<?php echo $id; ?>"><span class="glyphicon glyphicon-earphone click-through addTooltip" title="Click for phone number"></span> <?php echo $phone; ?></a>
         </p>
         </li>
 
