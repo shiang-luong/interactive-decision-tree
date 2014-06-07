@@ -98,6 +98,8 @@ require('db.php');
         <dl class="dl-horizontal">
             <dt>Name</dt>
             <dd>{{name}}<dd>
+            <dt>Website</dt>
+            <dd>{{url}}<dd>
             <dt>Email</dt>
             <dd>{{email}}<dd>
             <dt>Phone</dt>
@@ -126,6 +128,12 @@ require('db.php');
     <label for="refName" class="col-sm-2 control-label">Name</label>
     <div class="col-sm-10">
       <input type="text" name = "name" class="form-control required" id="refName" value="{{name}}" >
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="refURL" class="col-sm-2 control-label">Website</label>
+    <div class="col-sm-10">
+      <input type="url" name = "url" class="form-control required url" id="refEmail" value="{{url}}" >
     </div>
   </div>
   <div class="form-group">
@@ -196,6 +204,12 @@ require('db.php');
     <label for="refName" class="col-sm-2 control-label">Name</label>
     <div class="col-sm-10">
       <input type="text" name = "name" class="form-control required" id="refName" placeholder="Name" >
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="refURL" class="col-sm-2 control-label">Website</label>
+    <div class="col-sm-10">
+      <input type="url" name = "url" class="form-control required url" id="refEmail" placeholder="Website" >
     </div>
   </div>
   <div class="form-group">
