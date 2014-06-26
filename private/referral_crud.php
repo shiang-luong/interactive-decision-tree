@@ -101,6 +101,12 @@ switch($_POST['action']){
         $q = $dbh->prepare("UPDATE referrals SET" .  $d['update'] ." WHERE id = :id ");
         $q->execute($d['data']);
         if(!$e[1]){
+            $last_id = $_POST['id'];
+            $update = $dbh->prepare('UPDATE referrals SET loc = ? where id = ?');
+            $coord = $coordinates->lat . "," . $coordinates->lng;
+            $update->bindParam(1, $coord);
+            $update->bindParam(2, $last_id);
+            $update->execute();
             echo json_encode(array('status'=>'OK', 'message'=>'Edited successfully','last_id' => $_POST['id']));
         } else {
             echo json_encode(array('status'=>'ERROR', 'message'=>'Error Editing: ' . $e[1]));
