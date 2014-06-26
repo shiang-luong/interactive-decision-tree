@@ -42,6 +42,7 @@ $q = $dbh->prepare('SELECT * from referrals_assoc_tree where referral_id = ?');
 $q->bindParam(1, $id);
 $q->execute();
 $assignments = $q->fetchAll();
+$assigned_trees = array();
 foreach ($assignments as $a) {
    $assigned_trees[] = $a['assoc_tree']; 
 }
