@@ -68,9 +68,17 @@ foreach ($ref_data as $ref) {
     //Get distance in feet between user and referral: 20 miles is 105600 feet;
     $distance = $json['rows'][0]['elements'][0]['distance']['value'];
     if ($distance < $geo_range){
+        $ref[distance] = $distance;
         $nearby[] = $ref;
     }
 }
+
+//Attempt to sort by nearest referral
+$dist = array();
+foreach ($nearby as $key => $row) {
+    $dist[$key] = $row['distance'];
+}
+array_multisort($dist, SORT_ASC, $nearby);
 
 //God Almighty
 switch ($geo_range) {
@@ -136,7 +144,7 @@ if ($zip){
 <?php
 if (empty($nearby)){
 
-    echo "<p>Sorry, we couldn't find any referrals near you.</p>";
+    echo "<p><strong>Sorry, we couldn't find any referrals near you.</strong></p>";
 
 } else {
 

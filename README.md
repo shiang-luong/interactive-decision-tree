@@ -8,6 +8,8 @@ A demo decision tree which helps users with criminal records expungements is [av
 
 A demo of the admin backend can be found [here](http://loyolalawtech.org/idt/private/login.php) [user:admin, pass: admin].
 
+A PhoneGap-ready implimentation of the frontend for mobile can be found at [https://github.com/judsonmitchell/idt-mobile](https://github.com/judsonmitchell/idt-mobile);
+
 ## Requirements
 
 * PHP, with cURL installed
