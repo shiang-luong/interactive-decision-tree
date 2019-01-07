@@ -38,7 +38,7 @@ once you have set up].
 
 ## Mobile
 
-A port of this project optimized for mobile apps using [PhoneGap Build](https://build.phonegap.corm) can be found [here](https://github.com/judsonmitchell/idt-mobile). 
+A port of this project optimized for mobile apps using [PhoneGap Build](https://build.phonegap.com) can be found [here](https://github.com/judsonmitchell/idt-mobile). 
 
 ##License (MIT)
 
