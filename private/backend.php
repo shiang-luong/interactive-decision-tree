@@ -11,6 +11,7 @@ header("Access-Control-Allow-Origin: *");
     Log the user
 */
 
+
 if ($_POST['action'] === 'log'){
 
     $errors = array();
@@ -119,6 +120,7 @@ if ($_POST['action'] === 'login'){
 
     $user = $_POST['username'];
     $pass = sha1($_POST['password']);
+
     $login = $dbh->prepare('SELECT * from `admin` where username = :username AND password = :password');
     $data = array('username' => $user, 'password' => $pass);
     $login->execute($data);

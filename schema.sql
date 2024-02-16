@@ -13,7 +13,8 @@ SET time_zone = "+00:00";
 --
 -- Database: `inter-tree`
 --
-
+CREATE DATABASE IF NOT EXISTS `inter-tree`;
+use `inter-tree`;
 -- --------------------------------------------------------
 
 --
@@ -27,6 +28,9 @@ CREATE TABLE IF NOT EXISTS `admin` (
   `email` varchar(500) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+REPLACE INTO `admin` (`id`, `username`, `password`, `email`)
+VALUES (2, 'admin',SHA1('admin'),'admin@admin.admin');
 
 -- --------------------------------------------------------
 
