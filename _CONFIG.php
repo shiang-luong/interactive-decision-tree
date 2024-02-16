@@ -1,6 +1,5 @@
 <?php
-
-define("DBHOST","localhost");                                                                                                                                                                
-define("DBUSERNAME","inter-tree");                                                                                                                                                           
-define("DBPASSWD", "insecure");                                                                                                                                                              
-define("DATABASE_NAME","inter-tree");                                                                                                                                                        
+define("DBHOST",getenv('PHP_DBHOST'));                                                                                                                                                                
+define("DBUSERNAME",getenv('PHP_DBUSERNAME'));                                                                                                                                                           
+define("DBPASSWD", getenv('PHP_DBPASSWD'));                                                                                                                                                              
+define("DATABASE_NAME",getenv('PHP_DATABASE_NAME'));  
